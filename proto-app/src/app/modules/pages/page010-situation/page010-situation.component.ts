@@ -10,6 +10,7 @@ import { RadioConfig } from './../../../shared/model/radio-config';
 import { Page010SituationProperties } from './page010-situation.properties';
 import { Page010SituationPropertiesDe } from './page010-situation.properties.de';
 import { Page010SituationPropertiesEn } from './page010-situation.properties.en';
+import { FormGroupConfig } from 'src/app/shared/model/form-group-config';
 
 
 enum InsuranceBegin {
@@ -28,6 +29,7 @@ export class Page010SituationComponent implements OnInit {
   properties: Page010SituationProperties;
 
   // config for labels, rendering, select items, ...
+  situationGroupConfig: FormGroupConfig;
   situationChoiceConfig: RadioConfig;
   insuranceBeginChoiceConfig: RadioConfig;
   insuranceBeginDateConfig: InputConfig;
@@ -59,6 +61,11 @@ export class Page010SituationComponent implements OnInit {
       }
     }
 
+    this.situationGroupConfig = new FormGroupConfig(
+      this.properties.situationGroup_title,
+      this.properties.situationGroup_description,
+    );
+
     this.situationChoiceConfig = new RadioConfig(
       'situation',
       this.properties.situationChoice_rowLabel,
@@ -83,6 +90,7 @@ export class Page010SituationComponent implements OnInit {
 
     this.insuranceBeginDateConfig = new InputConfig(
       'insuranceBegin',
+      'date',
       this.properties.insuranceBegin_rowLabel,
       this.properties.insuranceBegin_infoText,
       true,
@@ -115,32 +123,29 @@ export class Page010SituationComponent implements OnInit {
 
     // prepare forms model
     this.form = this.fb.group({
-      situationChoice: [situationData.situation, Validators.required],
-      insuranceBeginChoice: [insuranceBeginChoice, Validators.required],
-      insuranceBeginDate: [situationData.insuranceBegin],
+      situationGroup: this.fb.group({
+        situationChoice: [situationData.situation, Validators.required],
+        insuranceBeginChoice: [insuranceBeginChoice, Validators.required],
+        insuranceBeginDate: [situationData.insuranceBegin],
+      })
     });
   }
 
 
   isVisibleInsuranceBeginChoice(): boolean {
-    return this.form.get('situationChoice').value === Situation.EXISTING_CAR;
+    return this.form.get('situationGroup.situationChoice').value === Situation.EXISTING_CAR;
   }
 
   isVisibleInsuranceBeginDate(): boolean {
     return this.isVisibleInsuranceBeginChoice() &&
-      this.form.get('insuranceBeginChoice').value === InsuranceBegin.OTHER_DATE;
+      this.form.get('situationGroup.insuranceBeginChoice').value === InsuranceBegin.OTHER_DATE;
   }
 
   onSubmit() {
     console.log('submit ...');
     if (!this.form.valid) {
-      this.markAllAsTouched();
-}
-  }
-
-  markAllAsTouched() {
-    this.form.get
-    this.form.markAsTouched({onlySelf: false});
+      this.form.markAllAsTouched();
+    }
   }
 
   test() {

@@ -13,7 +13,6 @@ import { RadioConfig } from '../../model/radio-config';
       multi: true
     }
   ],
-
 })
 export class RadioComponent implements OnInit, AfterViewInit, ControlValueAccessor {
 

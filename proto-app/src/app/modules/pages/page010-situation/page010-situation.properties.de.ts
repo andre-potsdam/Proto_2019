@@ -5,6 +5,10 @@ export class Page010SituationPropertiesDe implements Page010SituationProperties 
         // page global
         pageHeader = 'Berechnen Sie hier Ihr persönliches Angebot.';
 
+        // situation group
+        situationGroup_title = 'Ihre Situation';
+        situationGroup_description = null;
+
         // situation choice
         situationChoice_rowLabel = 'Für welches Fahrzeug möchten Sie den Versicherungsbeitrag berechnen?';
         situationChoice_infoText = 'Diese Auswahl ist wichtig!<br>Bitte entscheiden Sie wohl überlegt :)';

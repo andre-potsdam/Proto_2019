@@ -4,6 +4,10 @@ export interface Page010SituationProperties {
         // page global
         pageHeader: string;
 
+        // situation group
+        situationGroup_title: string;
+        situationGroup_description: string;
+
         // situation choice
         situationChoice_rowLabel: string;
         situationChoice_infoText: string;

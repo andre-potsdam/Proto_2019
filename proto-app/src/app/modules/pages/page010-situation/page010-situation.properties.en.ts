@@ -5,6 +5,10 @@ export class Page010SituationPropertiesEn implements Page010SituationProperties 
         // page global
         pageHeader = 'Calculate your personal offer here';
 
+        // situation group
+        situationGroup_title = 'Your Situation';
+        situationGroup_description = null;
+
         // situation choice
         situationChoice_rowLabel = 'Which car shall be calculated?';
         situationChoice_infoText = 'This is important!<br>Take care, please :)';

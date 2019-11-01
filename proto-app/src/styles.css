@@ -4,12 +4,40 @@ body {
     max-width: 900px;
 }
 
+#content-panel {
+    display: flex;
+    width: 900px;
+}
+
+#form-panel {
+    width: 700px;
+}
+
+#info-placeholder-panel {
+    width: 200px;
+}
+
 .page-header {
     margin-bottom: 10px; 
 }
 
 form {
     max-width: 700px;
+}
+
+.form-group-panel.ng-valid.ng-touched , .form-group-panel.ng-valid.ng-dirty {
+    border-style: solid;
+    border-color: rgb(208, 255, 137);
+}
+
+.group-title {
+    width: 700px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.form-group-panel.ng-valid.ng-touched .group-title , .form-group-panel.ng-valid.ng-dirty .group-title {
+    background-color: rgb(208, 255, 137);
 }
 
 .form-row {
@@ -20,6 +48,10 @@ form {
     background-color: #f5f5f5;
     box-shadow: 6px 4px #e1e0e0;
     display: flex;
+}
+
+app-radio.ng-invalid.ng-touched  .form-row , app-radio.ng-invalid.ng-dirty  .form-row {
+    background-color: #ffcdcd;
 }
 
 .row-label {
@@ -43,7 +75,3 @@ form {
     width: 170px;
 }
 
-app-radio.ng-invalid.ng-touched  .form-row , app-radio.ng-invalid.ng-dirty  .form-row {
-    border-style: solid;
-    border-color: red;
-}
