@@ -1,0 +1,38 @@
+<!-- page header -->
+<span class="page-header" [innerHTML]="properties.pageHeader"></span>
+
+<form [formGroup]="form">
+
+  <!-- <app-form-group formGroupName="situationGroup"> -->  <!-- title, description, validation -->
+
+    <!-- situation select -->
+    <app-radio formControlName="situationChoice" [config]="situationChoiceConfig" ></app-radio>
+    <!-- label, control panel, info button, info, border, validation errors -->
+    <!-- 2x label, 2x radio button -->
+
+    <!-- insurance begin select -->
+    <app-radio formControlName="insuranceBeginChoice" [config]="insuranceBeginChoiceConfig" *ngIf="isVisibleInsuranceBeginChoice()"></app-radio>
+    <!-- label, control panel, info, border -->
+    <!-- 2x radio button (requires parent app-form-row) -->
+
+    <!-- insurance begin date -->
+    <!--
+    <app-input formControlName="insuranceBeginDate" [config]="insuranceBeginDateConfig"></app-input>
+    -->
+    <input type="date" formControlName="insuranceBeginDate" *ngIf="isVisibleInsuranceBeginDate()">
+    <!-- label, control panel, info, border -->
+    <!-- input date (requires parent app-form-row) -->
+
+  <!-- </app-form-group> -->
+
+  <p></p>
+  <button type="submit" (click)="onSubmit()">Submit</button>
+  <p></p>
+  <button (click)="test()">Test</button>
+
+  <p></p>
+  <span>form value: {{form.value | json}}</span>
+  <p></p>
+  <span>form valid: {{form.valid | json}}</span>
+
+</form>

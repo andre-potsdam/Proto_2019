@@ -1,0 +1,13 @@
+
+#content-panel {
+    display: flex;
+    width: 900px;
+}
+
+#form-panel {
+    width: 700px;
+}
+
+#info-placeholder-panel {
+    width: 200px;
+}

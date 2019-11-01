@@ -1,0 +1,29 @@
+
+# general
+target
+test-output
+
+# eclipse
+.classpath
+.project
+.settings
+
+# client angular
+tds-rest-api/tds-rest-api-client-angular/dist
+tds-rest-api/tds-rest-api-client-angular/node
+tds-rest-api/tds-rest-api-client-angular/node_modules
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/api
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/model
+npm
+npm.cmd
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/variables.ts
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/index.ts
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/git_push.sh
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/encoder.ts
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/configuration.ts
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/api.module.ts
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/.swagger-codegen/VERSION
+tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/.swagger-codegen-ignore
+*.editorconfig
+*.code-workspace
+.vscode
