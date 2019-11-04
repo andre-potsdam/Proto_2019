@@ -1,0 +1,9 @@
+<!-- label, control panel, info button, info, border, validation -->
+<app-form-row [config]="config">
+
+    <select [(ngModel)]="selectedValue">
+        <option value="" disabled>Bitte wählen ...</option>
+        <option *ngFor="let item of config.items" [value]="item.value"> {{ item.label }} </option>
+    </select>
+
+</app-form-row>

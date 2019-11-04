@@ -1,7 +1,7 @@
 <!-- label, control panel, info button, info, border, validation -->
 <!-- 2x label, 2x radio button -->
 
-<div class="form-row" (click)="showInfo()" [class.validation-error]="hasValidationError()">
+<div class="form-row" (click)="showInfo()" >
 
   <!-- (optional) row label -->
   <span class="row-label" *ngIf="config.rowLabel">{{config.rowLabel}}</span>

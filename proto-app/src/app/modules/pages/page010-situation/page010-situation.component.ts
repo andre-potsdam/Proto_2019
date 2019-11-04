@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Situation } from 'src/app/shared/api/model/situation.enum';
+import { FormGroupConfig } from 'src/app/shared/model/form-group-config';
 import { InputConfig } from 'src/app/shared/model/input-config';
 import { Language } from 'src/app/shared/model/language.enum';
+import { SelectConfig } from 'src/app/shared/model/select-config';
 import { ConfigurationService } from 'src/app/shared/services/configuration.service';
 import { SituationDataService } from 'src/app/shared/services/situation-data.service';
 import { InfoTextGroup } from 'src/app/shared/util/info-text-group';
@@ -10,13 +12,13 @@ import { RadioConfig } from './../../../shared/model/radio-config';
 import { Page010SituationProperties } from './page010-situation.properties';
 import { Page010SituationPropertiesDe } from './page010-situation.properties.de';
 import { Page010SituationPropertiesEn } from './page010-situation.properties.en';
-import { FormGroupConfig } from 'src/app/shared/model/form-group-config';
 
 
 enum InsuranceBegin {
   BEGIN_0101202 = 'BEGIN_01012020',
   OTHER_DATE = 'OTHER_DATE',
 }
+
 
 @Component({
   selector: 'app-page010-situation',
@@ -33,6 +35,7 @@ export class Page010SituationComponent implements OnInit {
   situationChoiceConfig: RadioConfig;
   insuranceBeginChoiceConfig: RadioConfig;
   insuranceBeginDateConfig: InputConfig;
+  testSelectConfig: SelectConfig;
 
   // value and validation
   form: FormGroup;
@@ -93,11 +96,25 @@ export class Page010SituationComponent implements OnInit {
       'date',
       this.properties.insuranceBegin_rowLabel,
       this.properties.insuranceBegin_infoText,
-      true,
+      false,
     );
 
+    this.testSelectConfig = new SelectConfig(
+      'situation',
+      'test row label',
+      'test info text',
+      false,
+      [
+        { value: Situation.EXISTING_CAR, label: this.properties.situationChoice_existingCar_label },
+        { value: Situation.NEW_CAR, label: this.properties.situationChoice_newCar_label },
+        { value: 'value3', label: 'label 3' },
+        { value: 'value4', label: 'label 4' },
+      ]
+    );
+
+
     // ensure, that only one info text is shown
-    new InfoTextGroup(this.situationChoiceConfig, this.insuranceBeginChoiceConfig, this.insuranceBeginDateConfig);
+    new InfoTextGroup(this.situationChoiceConfig, this.insuranceBeginChoiceConfig, this.insuranceBeginDateConfig, this.testSelectConfig);
   }
 
 
@@ -110,7 +127,7 @@ export class Page010SituationComponent implements OnInit {
       // first init
       situationData = {
         situation: Situation.EXISTING_CAR,
-        //insuranceBegin: new Date(),   // today
+        // insuranceBegin: new Date(),   // today
       };
     }
 
@@ -125,21 +142,59 @@ export class Page010SituationComponent implements OnInit {
     this.form = this.fb.group({
       situationGroup: this.fb.group({
         situationChoice: [situationData.situation, Validators.required],
-        insuranceBeginChoice: [insuranceBeginChoice, Validators.required],
+        insuranceBeginChoice: [insuranceBeginChoice],
         insuranceBeginDate: [situationData.insuranceBegin],
-      })
+        testSelect: ['', Validators.required],
+      }, { validators: this.createValidator(this) })
     });
   }
 
 
   isVisibleInsuranceBeginChoice(): boolean {
-    return this.form.get('situationGroup.situationChoice').value === Situation.EXISTING_CAR;
+    return this.form && this.form.get('situationGroup.situationChoice').value === Situation.EXISTING_CAR;
   }
 
   isVisibleInsuranceBeginDate(): boolean {
     return this.isVisibleInsuranceBeginChoice() &&
       this.form.get('situationGroup.insuranceBeginChoice').value === InsuranceBegin.OTHER_DATE;
   }
+
+
+  private createValidator(component: Page010SituationComponent) {
+    return (control: AbstractControl) => {
+      return component.validate();
+    };
+  }
+
+  // Synchronous cross field validation.
+  validate() {
+    console.log('validating ...');
+
+    if (!this.form) {
+      return;
+    }
+
+    // insurance begin choice
+    let control = this.form.get('situationGroup.insuranceBeginChoice');
+    if (!this.isVisibleInsuranceBeginChoice()) {
+      control.setErrors(null);
+    } else {
+      if (control.value == null) {
+        control.setErrors({ missingValue: 'Bitte treffen Sie eine Auswahl' });
+      }
+    }
+
+    // insuranceBeginDate
+    control = this.form.get('situationGroup.insuranceBeginDate');
+    if (!this.isVisibleInsuranceBeginDate()) {
+      control.setErrors(null);
+    } else {
+      if (!control.value) {
+        control.setErrors({ missingValue: 'Bitte treffen Sie eine Auswahl' });
+      }
+    }
+  }
+
 
   onSubmit() {
     console.log('submit ...');
@@ -155,3 +210,4 @@ export class Page010SituationComponent implements OnInit {
   }
 
 }
+

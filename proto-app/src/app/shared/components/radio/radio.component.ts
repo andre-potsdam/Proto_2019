@@ -64,15 +64,6 @@ export class RadioComponent implements OnInit, AfterViewInit, ControlValueAccess
     // TODO
   }
 
-  hasValidationError() {
-    if (this.control) {
-      if (this.control.invalid && (this.control.dirty || this.control.touched)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   toggleInfo() {
     if (this.config.infoText) {
       this.config.showInfo = !this.config.showInfo;

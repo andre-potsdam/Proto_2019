@@ -1,26 +1,26 @@
-import { AfterViewInit, Component, forwardRef, Injector, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputConfig } from '../../model/input-config';
+import { Component, OnInit, Input, AfterViewInit, Injector, forwardRef } from '@angular/core';
+import { FormControl, ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SelectConfig } from '../../model/select-config';
 
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.css'],
+  selector: 'app-select',
+  templateUrl: './select.component.html',
+  styleUrls: ['./select.component.css'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputComponent),
+      useExisting: forwardRef(() => SelectComponent),
       multi: true
     }
   ],
 })
-export class InputComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+export class SelectComponent implements OnInit, AfterViewInit, ControlValueAccessor {
 
   @Input('value')
   private _selectedValue: string;
 
   @Input()
-  config: InputConfig;
+  config: SelectConfig;
 
   control: FormControl;
 
@@ -62,17 +62,5 @@ export class InputComponent implements OnInit, AfterViewInit, ControlValueAccess
   }
   setDisabledState?(isDisabled: boolean): void {
     // TODO
-  }
-
-  toggleInfo() {
-    if (this.config.infoText) {
-      this.config.showInfo = !this.config.showInfo;
-    }
-  }
-
-  showInfo() {
-    if (this.config.infoText && !this.config.showInfo) {
-      this.config.showInfo = true;
-    }
   }
 }

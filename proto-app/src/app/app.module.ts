@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { Page010SituationComponent } from './modules/pages/page010-situation/page010-situation.component';
 import { InputComponent } from './shared/components/input/input.component';
 import { RadioComponent } from './shared/components/radio/radio.component';
+import { FormRowComponent } from './shared/components/form-row/form-row.component';
+import { SelectComponent } from './shared/components/select/select.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { RadioComponent } from './shared/components/radio/radio.component';
     AppComponent,
     Page010SituationComponent,
     InputComponent,
-    RadioComponent
+    RadioComponent,
+    FormRowComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,

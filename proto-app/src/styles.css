@@ -54,6 +54,10 @@ app-radio.ng-invalid.ng-touched  .form-row , app-radio.ng-invalid.ng-dirty  .for
     background-color: #ffcdcd;
 }
 
+app-select.ng-invalid.ng-touched  .form-row , app-select.ng-invalid.ng-dirty  .form-row {
+    background-color: #ffcdcd;
+}
+
 .row-label {
     flex: 0 0 40%;
     max-width: 40%;
