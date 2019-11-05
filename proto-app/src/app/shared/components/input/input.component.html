@@ -1,26 +1,6 @@
 <!-- label, control panel, info button, info, border, validation -->
-<!-- 2x label, 2x radio button -->
+<app-form-row [config]="config">
 
-<div class="form-row" (click)="showInfo()" >
+  <input id="{{config.name}}" type="date" class="app-input" [(ngModel)]="selectedValue">
 
-    <!-- (optional) row label -->
-    <!-- <span class="row-label" *ngIf="config.rowLabel">{{config.rowLabel}}</span> -->
-    <span class="row-label">{{config.rowLabel}}</span>
-
-    <!-- control panel -->
-    <div class="control-panel">
-  
-      <!-- input -->
-      <input id="{{config.name}}" type="date" class="app-input" [(ngModel)]="selectedValue">
-  
-    </div>
-  
-    <!-- (optional) info icon -->
-    <span *ngIf="config.infoText" class="info-icon" (click)="toggleInfo()">*</span>
-  
-    <!-- (optional) info panel -->
-    <div *ngIf="config.showInfo" class="info-panel">
-      <span class="info-text" [innerHtml]="config.infoText"></span>
-    </div>
-  
-  </div>
+</app-form-row>

@@ -125,10 +125,10 @@ export class Page010SituationComponent implements OnInit {
   private initControl() {
 
     // prepare forms model
-    this.situationChoiceControl = new FormControl(Validators.required);
+    this.situationChoiceControl = new FormControl('', Validators.required);
     this.insuranceBeginChoiceControl = new FormControl();
     this.insuranceBeginDateControl = new FormControl();
-    this.testSelectControl = new FormControl(Validators.required);
+    this.testSelectControl = new FormControl('', Validators.required);
 
     this.form = new FormGroup({
       situationGroup: new FormGroup({
@@ -228,7 +228,7 @@ export class Page010SituationComponent implements OnInit {
   }
 
   test() {
-    console.log('test ...');
+    console.log('toggle language ...');
     this.configService.toggleLanguage();
     this.updateLanguageStrings();
   }

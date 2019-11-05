@@ -63,16 +63,4 @@ export class RadioComponent implements OnInit, AfterViewInit, ControlValueAccess
   setDisabledState?(isDisabled: boolean): void {
     // TODO
   }
-
-  toggleInfo() {
-    if (this.config.infoText) {
-      this.config.showInfo = !this.config.showInfo;
-    }
-  }
-
-  showInfo() {
-    if (this.config.infoText && !this.config.showInfo) {
-      this.config.showInfo = true;
-    }
-  }
 }

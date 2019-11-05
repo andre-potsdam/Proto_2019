@@ -2,23 +2,27 @@
 
 <div class="form-row" (click)="showInfo()">
 
-    <!-- (optional) row label -->
+  <!-- (optional) row label -->
+  <div class="label-panel">
     <span class="row-label" *ngIf="config.rowLabel">{{config.rowLabel}}</span>
-  
-    <!-- control panel -->
-    <div class="control-panel">
-
-        <!-- input controls come here -->
-        <ng-content></ng-content>
-  
-    </div>
-  
-    <!-- (optional) info icon -->
-    <span *ngIf="config.infoText" class="info-icon" (click)="toggleInfo()">*</span>
-  
-    <!-- (optional) info panel -->
-    <div *ngIf="config.showInfo" class="info-panel">
-      <span class="info-text" [innerHtml]="config.infoText"></span>
-    </div>
-  
   </div>
+
+  <!-- control panel -->
+  <div class="control-panel">
+
+    <!-- input controls come here -->
+    <ng-content></ng-content>
+
+  </div>
+
+  <!-- (optional) info icon -->
+  <div class="info-icon-panel">
+    <span *ngIf="config.infoText" class="info-icon" (click)="toggleInfo()">*</span>
+  </div>
+
+  <!-- (optional) info panel -->
+  <div *ngIf="config.showInfo" class="info-panel">
+    <span class="info-text" [innerHtml]="config.infoText"></span>
+  </div>
+
+</div>

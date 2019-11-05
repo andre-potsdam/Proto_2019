@@ -15,20 +15,14 @@
 
     <!-- situation select -->
     <app-radio formControlName="situationChoice" [config]="situationChoiceConfig"></app-radio>
-    <!-- label, control panel, info button, info, border, validation errors -->
-    <!-- 2x label, 2x radio button -->
 
     <!-- insurance begin select -->
     <app-radio formControlName="insuranceBeginChoice" [config]="insuranceBeginChoiceConfig"
       *ngIf="isVisibleInsuranceBeginChoice()"></app-radio>
-    <!-- label, control panel, info, border -->
-    <!-- 2x radio button (requires parent app-form-row) -->
 
     <!-- insurance begin date -->
     <app-input formControlName="insuranceBeginDate" [config]="insuranceBeginDateConfig" 
-      *ngIf="isVisibleInsuranceBeginDate()"></app-input>
-    <!-- label, control panel, info, border -->
-    <!-- input date (requires parent app-form-row) -->
+      *ngIf="isVisibleInsuranceBeginDate()" class="appended"></app-input>
 
     <!-- test select -->
     <app-select formControlName="testSelect" [config]="testSelectConfig"></app-select>
@@ -38,7 +32,7 @@
   <p></p>
   <button type="submit" (click)="onSubmit()" [innerHtml]="properties.submitButton_label"></button>
   <p></p>
-  <button (click)="test()">Test</button>
+  <button (click)="test()">toggle language</button>
 
   <p></p>
   <span>form value: {{form.value | json}}</span>

@@ -1,28 +1,11 @@
 <!-- label, control panel, info button, info, border, validation -->
-<!-- 2x label, 2x radio button -->
+<app-form-row [config]="config">
 
-<div class="form-row" (click)="showInfo()" >
-
-  <!-- (optional) row label -->
-  <span class="row-label" *ngIf="config.rowLabel">{{config.rowLabel}}</span>
-
-  <!-- control panel -->
-  <div class="control-panel">
-
-    <!-- radio option -->
-    <div *ngFor="let item of config.items; let i = index" class="radio-panel">
-      <input id="{{config.name+'_' + i}}" [name]="config.name" type="radio" class="radio-input" value="{{item.value}}" [(ngModel)]="selectedValue">
-      <label class="radio-label" for="{{config.name+'_' + i}}">{{item.label}}</label>
-    </div>
-
+  <!-- radio option -->
+  <div *ngFor="let item of config.items; let i = index" class="radio-panel">
+    <input id="{{config.name+'_' + i}}" [name]="config.name" type="radio" class="radio-input" value="{{item.value}}"
+      [(ngModel)]="selectedValue">
+    <label class="radio-label" for="{{config.name+'_' + i}}">{{item.label}}</label>
   </div>
 
-  <!-- (optional) info icon -->
-  <span *ngIf="config.infoText" class="info-icon" (click)="toggleInfo()">*</span>
-
-  <!-- (optional) info panel -->
-  <div *ngIf="config.showInfo" class="info-panel">
-    <span class="info-text" [innerHtml]="config.infoText"></span>
-  </div>
-
-</div>
+</app-form-row>
