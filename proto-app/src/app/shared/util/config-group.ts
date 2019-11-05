@@ -1,6 +1,6 @@
 import { FormControlConfig } from '../model/form-control-config';
 
-export class InfoTextGroup {
+export class ConfigGroup {
 
     private readonly formControlConfigs: FormControlConfig[];
 
@@ -12,7 +12,7 @@ export class InfoTextGroup {
     }
 
     private handle(fcc: FormControlConfig) {
-        console.log(`InfoTextGroup.changed(name=${fcc.name}, showInfo=${fcc.showInfo})`);
+        console.log(`ConfigGroup.changed(name=${fcc.name}, showInfo=${fcc.showInfo})`);
         if (!fcc.showInfo) {
             return;
         }

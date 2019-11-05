@@ -1,4 +1,4 @@
-import { Observable, Subject, Observer } from 'rxjs';
+import { Subject } from 'rxjs';
 
 export class FormControlConfig {
 
@@ -8,7 +8,7 @@ export class FormControlConfig {
   // Label of form row.
   rowLabel?: string;
 
-  // Explaining information for row. 
+  // Explaining information for row.
   // NOTE: This is rendered as inner HTML, so HTML tags can be used!
   infoText?: string;
 
@@ -30,10 +30,34 @@ export class FormControlConfig {
 
   readonly showInfoSubject = new Subject<FormControlConfig>();
 
-  constructor(name: string, rowLabel: string, infoText: string, showInfo: boolean) {
+  // Keys for language dependent properties.
+  readonly keyForRowLabel: string;
+  readonly keyForInfoText: string;
+
+  constructor(name: string, showInfo: boolean) {
     this.name = name;
-    this.rowLabel = rowLabel;
-    this.infoText = infoText;
     this.showInfo = showInfo;
+
+    this.keyForRowLabel = this.name + '_rowLabel';
+    this.keyForInfoText = this.name + '_infoText';
+  }
+
+
+  // Update all language dependent strings from given properties.
+  // Following properties MUST be defined in given map:
+  //    <name>_rowLabel
+  //    <name>_infoText
+  //
+  updateLanguageStrings(properties: any) {
+    this.rowLabel = this.getLanguageString(properties, this.keyForRowLabel);
+    this.infoText = this.getLanguageString(properties, this.keyForInfoText);
+  }
+
+  getLanguageString(properties: any, key: string) {
+    if (properties.hasOwnProperty(key)) {
+      return properties[key];
+    } else {
+      throw new Error('missing property ' + key);
+    }
   }
 }

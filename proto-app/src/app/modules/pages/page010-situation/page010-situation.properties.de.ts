@@ -24,10 +24,14 @@ export class Page010SituationPropertiesDe implements Page010SituationProperties 
         insuranceBeginChoice_anotherDate_label = 'An einem anderen Datum';
 
         // insurance begin date
-        insuranceBegin_rowLabel = null;
-        insuranceBegin_infoText = null;
+        insuranceBeginDate_rowLabel = null;
+        insuranceBeginDate_infoText = null;
 
-        // submit button
+       // testSelect
+       testSelect_rowLabel = 'testSelect deutsches Label';
+       testSelect_infoText = 'testSelect deutscher Info Text';
+
+       // submit button
         submitButton_label = 'Angaben zum Fahrzeug';
 
 }

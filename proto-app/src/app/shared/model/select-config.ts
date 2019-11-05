@@ -1,13 +1,9 @@
-import { FormControlConfig } from './form-control-config';
+import { RadioConfig } from './radio-config';
 import { SelectItem } from './select-item';
 
-export class SelectConfig extends FormControlConfig  {
+export class SelectConfig extends RadioConfig {
 
-    // List of options.
-    items: SelectItem[];
-
-    constructor(name: string, rowLabel: string, infoText: string, showInfo: boolean, items: SelectItem[]) {
-        super(name, rowLabel, infoText, showInfo);
-        this.items = items;
+    constructor(name: string, showInfo: boolean, items: SelectItem[]) {
+        super(name, showInfo, items);
     }
 }

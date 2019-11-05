@@ -23,10 +23,14 @@ export class Page010SituationPropertiesEn implements Page010SituationProperties 
         insuranceBeginChoice_anotherDate_label = 'another day';
 
         // insurance begin date
-        insuranceBegin_rowLabel = null;
-        insuranceBegin_infoText = null;
+        insuranceBeginDate_rowLabel = null;
+        insuranceBeginDate_infoText = null;
 
-        // submit button
+       // testSelect
+       testSelect_rowLabel = 'testSelect english lable';
+       testSelect_infoText = 'testSelect english info text';
+
+       // submit button
         submitButton_label = 'vehicle details';
 
 }

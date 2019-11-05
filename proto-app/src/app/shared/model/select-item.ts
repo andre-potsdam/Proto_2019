@@ -1,11 +1,11 @@
 export class SelectItem {
 
-    // this label is shown at GUI
-    label: string;
-
-    // internal id, no whitespaces here
-    //id: string;
-
-    // value of this item
+    // internal value of this item
     value: string;
+
+    // key for language dependent label text
+    labelKey?: string;
+
+     // label text, will be shown shown at GUI
+    label?: string;
 }
