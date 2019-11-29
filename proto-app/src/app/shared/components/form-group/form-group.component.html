@@ -1,0 +1,11 @@
+<!-- validation -->
+<div class="form-group-panel">
+
+    <!-- group title, description -->
+    <span *ngIf="config.title" class="group-title" [innerHTML]="config.title"></span>
+    <span *ngIf="config.description" class="group-description" [innerHTML]="config.description"></span>
+
+    <!-- form rows, controls, etc. come here -->
+    <ng-content></ng-content>
+
+</div>

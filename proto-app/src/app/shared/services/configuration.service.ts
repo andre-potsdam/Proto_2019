@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Language } from '../model/language.enum';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -7,6 +8,8 @@ import { Language } from '../model/language.enum';
 export class ConfigurationService {
 
     constructor() { }
+
+    readonly languageSubject = new Subject<Language>();
 
     private language = Language.DE;
 
@@ -20,5 +23,6 @@ export class ConfigurationService {
         } else {
             this.language = Language.DE;
         }
+        this.languageSubject.next(this.language);
     }
 }

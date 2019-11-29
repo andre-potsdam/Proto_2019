@@ -1,0 +1,13 @@
+.radio-panel {
+    padding: 3px;
+    margin: 3px;
+    /* background-color: #d3d3d37a; */
+}
+
+label {
+    padding-left: 4px;
+}
+
+input:checked + label {
+    /* background-color: red; */
+}

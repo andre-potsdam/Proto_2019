@@ -1,12 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
 
-body {
+/*
+    Verti color values:
+        pink: #C3009E
+        orange: #FFA100
+*/
+
+
+/* html {
+    background-color: #d3d3d308;
+} */
+
+* {
+    font-family: Bariol, Arial, sans-serif;
+    color: #707173;
+}
+
+/* body {
     max-width: 900px;
+} */
+
+select {
+    border-color: lightgrey;
+    padding: 5px;
 }
 
 #content-panel {
     display: flex;
     width: 900px;
+    margin: auto;
+    margin-top: 20px;
 }
 
 #form-panel {
@@ -17,6 +40,11 @@ body {
     width: 200px;
 }
 
+.page-panel {
+    display: flex;
+    flex-direction: column;
+}
+
 .page-header {
     margin-bottom: 10px; 
 }
@@ -25,31 +53,23 @@ form {
     max-width: 700px;
 }
 
-.form-group-panel.ng-valid.ng-touched , .form-group-panel.ng-valid.ng-dirty {
-    border-style: solid;
-    border-color: rgb(208, 255, 137);
-}
-
 .group-title {
     width: 700px;
     margin-bottom: 10px;
     padding: 5px;
 }
 
-.form-group-panel.ng-valid.ng-touched .group-title , .form-group-panel.ng-valid.ng-dirty .group-title {
-    background-color: rgb(208, 255, 137);
+.submit-button-panel {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
 }
 
-app-radio.ng-invalid.ng-touched  .form-row , app-radio.ng-invalid.ng-dirty  .form-row {
-    background-color: #ffcdcd;
-}
-
-app-select.ng-invalid.ng-touched  .form-row , app-select.ng-invalid.ng-dirty  .form-row {
-    background-color: #ffcdcd;
-}
-
-app-input.ng-invalid.ng-touched  .form-row , app-input.ng-invalid.ng-dirty  .form-row {
-    background-color: #ffcdcd;
+.submit-button {
+    height: 30px;
+    background-color: #FFA100;
+    color: white;
+    border-style: none;
 }
 
 .info-panel {
@@ -58,6 +78,82 @@ app-input.ng-invalid.ng-touched  .form-row , app-input.ng-invalid.ng-dirty  .for
     width: 170px;
 }
 
-app-input.appended .form-row {
+
+
+/* border-color:  #13a538; */
+
+/* app-form-group.ng-valid.ng-touched .form-group-panel, app-form-group.ng-valid.ng-dirty .form-group-panel {
+    border-style: solid;
+    border-color: rgb(208, 255, 137);
+}
+
+app-form-group.ng-valid.ng-touched .group-title , app-form-group.ng-valid.ng-dirty .group-title {
+    background-color: rgb(208, 255, 137);
+} */
+
+
+/* valid state */
+app-radio.ng-valid .form-row {
+    border-right-color: rgb(208, 255, 137);
+}
+app-select.ng-valid .form-row {
+    border-right-color: rgb(208, 255, 137);
+}
+app-input.ng-valid .form-row {
+    border-right-color: rgb(208, 255, 137);
+}
+app-input-date.ng-valid .form-row {
+    border-right-color: rgb(208, 255, 137);
+}
+
+
+/* invalid state */
+app-radio.ng-invalid.ng-touched  .form-row , app-radio.ng-invalid.ng-dirty  .form-row {
+    background-color: #ffcdcd;
+    border-right-color: #ffcdcd;
+}
+app-select.ng-invalid.ng-touched  .form-row , app-select.ng-invalid.ng-dirty  .form-row {
+    background-color: #ffcdcd;
+    border-right-color: #ffcdcd;
+}
+app-input.ng-invalid.ng-touched  .form-row , app-input.ng-invalid.ng-dirty  .form-row {
+    background-color: #ffcdcd;
+    border-right-color: #ffcdcd;
+}
+app-input-date.ng-invalid.ng-touched  .form-row , app-input-date.ng-invalid.ng-dirty  .form-row {
+    background-color: #ffcdcd;
+    border-right-color: #ffcdcd;
+}
+
+
+/* appended form row */
+app-input.appended .form-row, app-select.appended .form-row, app-radio.appended .form-row {
     margin-top: 0px;
+    border-top-style: solid;
+    border-top-color: #f5f5f57d;
+}
+
+
+/* viewer */
+.viewer-panel {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    box-shadow: 6px 4px #e1e0e0;
+}
+.viewer-item {
+    display: flex;
+    padding: 5px;
+}
+.viewer-item-label {
+    flex: 0 0 40%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.viewer-item-value {
+    flex: 0 0 57%;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
 }

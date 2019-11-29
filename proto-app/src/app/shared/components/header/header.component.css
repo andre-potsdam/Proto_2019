@@ -1,0 +1,21 @@
+
+#header-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 3px #C3009E solid;
+}
+
+#verti-logo {
+    height: 150px;
+    margin: 9px 0;
+    margin-top: -60px;
+    margin-left: -40px;
+    margin-right: -30px;
+    margin-bottom: -50px;
+}
+
+#xtoggle-language-button {
+    height: 15px;
+}

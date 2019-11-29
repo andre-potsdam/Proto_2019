@@ -34,7 +34,8 @@ export class FormRowComponent implements OnInit, AfterViewInit {
     }
   }
 
-  toggleInfo() {
+  toggleInfo(event: Event) {
+    event.stopPropagation();
     if (this.config.infoText) {
       this.config.showInfo = !this.config.showInfo;
     }

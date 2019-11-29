@@ -12,7 +12,6 @@ export class ConfigGroup {
     }
 
     private handle(fcc: FormControlConfig) {
-        console.log(`ConfigGroup.changed(name=${fcc.name}, showInfo=${fcc.showInfo})`);
         if (!fcc.showInfo) {
             return;
         }
@@ -22,6 +21,12 @@ export class ConfigGroup {
                 continue;
             }
             formControlConfig.showInfo = false;
+        }
+    }
+
+    updateLanguageStrings(properties: any) {
+        for (const formControlConfig of this.formControlConfigs) {
+            formControlConfig.updateLanguageStrings(properties);
         }
     }
 }

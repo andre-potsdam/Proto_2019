@@ -1,23 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Component, ModuleWithComponentFactories } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Situation } from 'src/app/shared/api/model/situation.enum';
+import { AbstractDataEditor } from 'src/app/shared/classes/abstract-data-editor';
 import { FormGroupConfig } from 'src/app/shared/model/form-group-config';
 import { InputConfig } from 'src/app/shared/model/input-config';
 import { Language } from 'src/app/shared/model/language.enum';
-import { SelectConfig } from 'src/app/shared/model/select-config';
 import { ConfigurationService } from 'src/app/shared/services/configuration.service';
 import { SituationDataService } from 'src/app/shared/services/situation-data.service';
 import { ConfigGroup } from 'src/app/shared/util/config-group';
+import { SituationData } from './../../../shared/api/model/situation-data';
 import { RadioConfig } from './../../../shared/model/radio-config';
 import { Page010SituationProperties } from './page010-situation.properties';
 import { Page010SituationPropertiesDe } from './page010-situation.properties.de';
 import { Page010SituationPropertiesEn } from './page010-situation.properties.en';
-
-
-enum InsuranceBegin {
-  BEGIN_0101202 = 'BEGIN_01012020',
-  OTHER_DATE = 'OTHER_DATE',
-}
+import { Page010SituationStaticData } from './page010-situation.staticData';
+import { InsuranceBegin } from 'src/app/shared/model/insurance-begin.enum';
+import * as moment from 'moment';
 
 
 @Component({
@@ -25,7 +23,7 @@ enum InsuranceBegin {
   templateUrl: './page010-situation.component.html',
   styleUrls: ['./page010-situation.component.css'],
 })
-export class Page010SituationComponent implements OnInit {
+export class Page010SituationComponent extends AbstractDataEditor<SituationData> {
 
   // language dependent properties
   properties: Page010SituationProperties;
@@ -35,7 +33,6 @@ export class Page010SituationComponent implements OnInit {
   situationChoiceConfig: RadioConfig;
   insuranceBeginChoiceConfig: RadioConfig;
   insuranceBeginDateConfig: InputConfig;
-  testSelectConfig: SelectConfig;
   configGroup: ConfigGroup;
 
   // reactive form controls for value and validation
@@ -43,66 +40,115 @@ export class Page010SituationComponent implements OnInit {
   situationChoiceControl: FormControl;
   insuranceBeginChoiceControl: FormControl;
   insuranceBeginDateControl: FormControl;
-  testSelectControl: FormControl;
 
 
   constructor(
-    private configService: ConfigurationService,
-    private situationDataService: SituationDataService) { }
-
-
-  ngOnInit() {
-    this.initConfig();
-    this.updateLanguageStrings();
-    this.initControl();
-    this.updateValues();
+    configService: ConfigurationService,
+    situationDataService: SituationDataService) {
+    super(configService, situationDataService);
   }
 
 
-  // Init config data. Invoked once after startup.
-  private initConfig() {
+  // @override
+  protected initConfigs() {
 
     this.situationGroupConfig = new FormGroupConfig('situationGroup');
 
-    this.situationChoiceConfig = new RadioConfig(
-      'situationChoice',
-      true,
-      [{ value: Situation.EXISTING_CAR, labelKey: 'situationChoice_existingCar_label' },
-      { value: Situation.NEW_CAR, labelKey: 'situationChoice_newCar_label' },
-      ]);
-
-    this.insuranceBeginChoiceConfig = new RadioConfig(
-      'insuranceBeginChoice',
-      false,
-      [{ value: InsuranceBegin.BEGIN_0101202, labelKey: 'insuranceBeginChoice_01012020_label' },
-      { value: InsuranceBegin.OTHER_DATE, labelKey: 'insuranceBeginChoice_anotherDate_label' },
-      ]);
-
-    this.insuranceBeginDateConfig = new InputConfig(
-      'insuranceBeginDate', 'date', false,
-    );
-
-    this.testSelectConfig = new SelectConfig(
-      'testSelect', false,
-      [{ value: Situation.EXISTING_CAR, labelKey: 'situationChoice_existingCar_label' },
-      { value: Situation.NEW_CAR, labelKey: 'situationChoice_newCar_label' },
-      { value: 'value3', label: 'label 3' },
-      { value: 'value4', label: 'label 4' },
-      ]
-    );
+    this.situationChoiceConfig = new RadioConfig('situationChoice', true, Page010SituationStaticData.situationItems);
+    this.insuranceBeginChoiceConfig = new RadioConfig('insuranceBeginChoice', false, Page010SituationStaticData.insuranceBeginChoiceItems);
+    this.insuranceBeginDateConfig = new InputConfig('insuranceBeginDate', 'date', false);
 
     // ensure, that only one info text is shown
     this.configGroup = new ConfigGroup(
-      this.situationChoiceConfig, this.insuranceBeginChoiceConfig, this.insuranceBeginDateConfig, this.testSelectConfig);
+      this.situationChoiceConfig, this.insuranceBeginChoiceConfig, this.insuranceBeginDateConfig);
   }
 
 
-  // Update dynamic configuration, e.g. select item lists.
-  updateConfig() { }
+  // @override
+  protected initFormControls() {
+
+    // prepare forms model
+    this.situationChoiceControl = new FormControl('', Validators.required);
+    this.insuranceBeginChoiceControl = new FormControl();
+    this.insuranceBeginDateControl = new FormControl();
+
+    this.form = new FormGroup({
+      situationGroup: new FormGroup({
+        situationChoice: this.situationChoiceControl,
+        insuranceBeginChoice: this.insuranceBeginChoiceControl,
+        insuranceBeginDate: this.insuranceBeginDateControl,
+      }, this.createValidator(this))
+    });
+  }
 
 
-  // Update language dependent config data, invoked after every language change.
-  updateLanguageStrings() {
+  // @override
+  protected updateConfigs() { }
+
+
+  // @override
+  createDefaultData(): SituationData {
+
+    return {
+      situation: Situation.EXISTING_CAR,
+      insuranceBegin: moment().add(1, 'd'),   // tomorrow
+    };
+  }
+
+
+  // @override
+  protected setData(situationData: SituationData) {
+
+    // situationChoice
+    this.situationChoiceControl.setValue(situationData.situation);
+
+    // insuranceBeginChoice
+    let insuranceBeginChoice: InsuranceBegin = null;
+    if (situationData.insuranceBegin) {
+      if (situationData.insuranceBegin.isSame('2020-01-01')) {
+        insuranceBeginChoice = InsuranceBegin.BEGIN_01012020;
+      } else {
+        insuranceBeginChoice = InsuranceBegin.OTHER_DATE;
+      }
+    }
+    this.insuranceBeginChoiceControl.setValue(insuranceBeginChoice);
+
+    // insuranceBeginDate
+    if (situationData.insuranceBegin) {
+      this.insuranceBeginDateControl.setValue(
+        situationData.insuranceBegin.format('YYYY-MM-DD')
+      );
+    }
+  }
+
+
+  // Get service data from view model.
+  protected getData(): SituationData {
+
+    // situation
+
+    // (optional) insurance begin
+    let insuranceBegin: moment.Moment = null;
+    if (this.isVisibleInsuranceBeginChoice()) {
+      if (this.insuranceBeginChoiceControl.value === InsuranceBegin.BEGIN_01012020) {
+        insuranceBegin = moment('01.01.2020', 'DD.MM.YYYY');
+      } else {
+        insuranceBegin = moment(this.insuranceBeginDateControl.value, 'YYYY-MM-DD');
+      }
+    }
+
+    const data: SituationData = {
+      situation: this.situationChoiceControl.value,
+      insuranceBegin: insuranceBegin,
+    };
+
+    return data;
+  }
+
+
+  // @override
+  protected updateLanguageStrings() {
+
     switch (this.configService.getLanguage()) {
       case Language.EN: {
         this.properties = new Page010SituationPropertiesEn();
@@ -114,92 +160,30 @@ export class Page010SituationComponent implements OnInit {
     }
 
     this.situationGroupConfig.updateLanguageStrings(this.properties);
-    this.situationChoiceConfig.updateLanguageStrings(this.properties);
-    this.insuranceBeginChoiceConfig.updateLanguageStrings(this.properties);
-    this.insuranceBeginDateConfig.updateLanguageStrings(this.properties);
-    this.testSelectConfig.updateLanguageStrings(this.properties);
-  }
-
-
-  // Init form controls. Invoked once after startup.
-  private initControl() {
-
-    // prepare forms model
-    this.situationChoiceControl = new FormControl('', Validators.required);
-    this.insuranceBeginChoiceControl = new FormControl();
-    this.insuranceBeginDateControl = new FormControl();
-    this.testSelectControl = new FormControl('', Validators.required);
-
-    this.form = new FormGroup({
-      situationGroup: new FormGroup({
-        situationChoice: this.situationChoiceControl,
-        insuranceBeginChoice: this.insuranceBeginChoiceControl,
-        insuranceBeginDate: this.insuranceBeginDateControl,
-        testSelect: this.testSelectControl,
-      }, this.createValidator(this))
-    });
-  }
-
-
-  // Update view model values. Invoked after every value change.
-  updateValues() {
-    // get situation data from previous session
-    let situationData = this.situationDataService.get();
-    if (!situationData) {
-      // first init
-      situationData = {
-        situation: Situation.EXISTING_CAR,
-        // insuranceBegin: new Date(),   // today
-      };
-    }
-
-    // situationChoice
-    this.situationChoiceControl.setValue(situationData.situation);
-
-    // insuranceBeginChoice
-    let insuranceBeginChoice: InsuranceBegin = null;
-    if (situationData.insuranceBegin) {
-      const d = situationData.insuranceBegin;
-      const is01012020 = d.getFullYear() === 2020 && d.getMonth() === 0 && d.getDate() === 1;
-      insuranceBeginChoice = is01012020 ? InsuranceBegin.BEGIN_0101202 : InsuranceBegin.OTHER_DATE;
-    }
-    this.insuranceBeginChoiceControl.setValue(insuranceBeginChoice);
-
-    // insuranceBeginDate
-    this.insuranceBeginDateControl.setValue(situationData.insuranceBegin);
-
-    // testSelect
-    this.testSelectControl.setValue('');
+    this.configGroup.updateLanguageStrings(this.properties);
   }
 
 
   isVisibleInsuranceBeginChoice(): boolean {
-    return this.form && this.form.get('situationGroup.situationChoice').value === Situation.EXISTING_CAR;
+    return this.situationChoiceControl && this.situationChoiceControl.value === Situation.EXISTING_CAR;
   }
 
   isVisibleInsuranceBeginDate(): boolean {
     return this.isVisibleInsuranceBeginChoice() &&
-      this.form.get('situationGroup.insuranceBeginChoice').value === InsuranceBegin.OTHER_DATE;
+      this.insuranceBeginChoiceControl.value === InsuranceBegin.OTHER_DATE;
   }
 
 
-  private createValidator(component: Page010SituationComponent): ValidatorFn {
-    return (control: AbstractControl) => {
-      component.validate();
-      return null;
-    };
-  }
-
-  // Synchronous cross field validation.
+  // @override
   validate() {
-    console.log('validating ...');
+    // this.info('enter validate()');
 
     if (!this.form) {
       return;
     }
 
     // insurance begin choice
-    let control = this.form.get('situationGroup.insuranceBeginChoice');
+    let control = this.insuranceBeginChoiceControl;
     if (!this.isVisibleInsuranceBeginChoice()) {
       control.setErrors(null);
     } else {
@@ -209,7 +193,7 @@ export class Page010SituationComponent implements OnInit {
     }
 
     // insuranceBeginDate
-    control = this.form.get('situationGroup.insuranceBeginDate');
+    control = this.insuranceBeginDateControl;
     if (!this.isVisibleInsuranceBeginDate()) {
       control.setErrors(null);
     } else {
@@ -221,17 +205,7 @@ export class Page010SituationComponent implements OnInit {
 
 
   onSubmit() {
-    console.log('submit ...');
-    if (!this.form.valid) {
-      this.form.markAllAsTouched();
-    }
+    this.confirm(this.form);
   }
-
-  test() {
-    console.log('toggle language ...');
-    this.configService.toggleLanguage();
-    this.updateLanguageStrings();
-  }
-
 }
 

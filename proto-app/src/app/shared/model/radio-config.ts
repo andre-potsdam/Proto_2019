@@ -19,14 +19,16 @@ export class RadioConfig extends FormControlConfig {
         super.updateLanguageStrings(properties);
 
         // update item labels
-        for (const item of this.items) {
-            if (item.labelKey) {
-                item.label = this.getLanguageString(properties, item.labelKey);
-            } else {
-                if (!item.label) {
-                    throw new Error('item has labelKey or label: ' + item.value);
+        if (this.items) {
+            for (const item of this.items) {
+                if (item.labelKey) {
+                    item.label = this.getLanguageString(properties, item.labelKey);
+                } else {
+                    if (!item.label) {
+                        throw new Error('item has labelKey or label: ' + item.value);
+                    }
                 }
             }
         }
-     }
+    }
 }

@@ -1,42 +1,37 @@
-<!-- page header -->
-<span class="page-header" [innerHTML]="properties.pageHeader"></span>
+<div class="page-panel">
 
-<!-- situation form -->
-<form [formGroup]="form">
+  <!-- page header -->
+  <span class="page-header" [innerHTML]="properties.pageHeader"></span>
 
+  <!-- situation form -->
+  <form [formGroup]="form">
 
-  <!-- situation group -->
-  <!-- validation -->
-  <div formGroupName="situationGroup" class="form-group-panel">
+    <!-- situation group -->
+    <app-form-group formGroupName="situationGroup" [config]="situationGroupConfig">
 
-    <!-- group title, description -->
-    <span class="group-title" [innerHTML]="properties.situationGroup_title"></span>
-    <span class="group-description" [innerHTML]="properties.situationGroup_description"></span>
+      <!-- situation select -->
+      <app-radio formControlName="situationChoice" [config]="situationChoiceConfig"></app-radio>
 
-    <!-- situation select -->
-    <app-radio formControlName="situationChoice" [config]="situationChoiceConfig"></app-radio>
+      <!-- insurance begin select -->
+      <app-radio formControlName="insuranceBeginChoice" [config]="insuranceBeginChoiceConfig"
+        *ngIf="isVisibleInsuranceBeginChoice()"></app-radio>
 
-    <!-- insurance begin select -->
-    <app-radio formControlName="insuranceBeginChoice" [config]="insuranceBeginChoiceConfig"
-      *ngIf="isVisibleInsuranceBeginChoice()"></app-radio>
+      <!-- insurance begin date -->
+      <app-input-date formControlName="insuranceBeginDate" [config]="insuranceBeginDateConfig"
+        *ngIf="isVisibleInsuranceBeginDate()" class="appended"></app-input-date>
 
-    <!-- insurance begin date -->
-    <app-input formControlName="insuranceBeginDate" [config]="insuranceBeginDateConfig" 
-      *ngIf="isVisibleInsuranceBeginDate()" class="appended"></app-input>
+    </app-form-group>
 
-    <!-- test select -->
-    <app-select formControlName="testSelect" [config]="testSelectConfig"></app-select>
+    <div class="submit-button-panel">
+      <button type="submit" class="submit-button" (click)="onSubmit()"
+        [innerHtml]="properties.submitButton_label"></button>
+    </div>
 
-  </div>
-
-  <p></p>
-  <button type="submit" (click)="onSubmit()" [innerHtml]="properties.submitButton_label"></button>
-  <p></p>
-  <button (click)="test()">toggle language</button>
-
-  <p></p>
+    <!-- <p></p>
   <span>form value: {{form.value | json}}</span>
   <p></p>
-  <span>form valid: {{form.valid | json}}</span>
+  <span>form valid: {{form.valid | json}}</span> -->
 
-</form>
+  </form>
+
+</div>

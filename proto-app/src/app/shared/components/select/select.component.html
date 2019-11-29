@@ -2,7 +2,7 @@
 <app-form-row [config]="config">
 
     <select [(ngModel)]="selectedValue">
-        <option value="" disabled>Bitte wählen ...</option>
+        <option [ngValue]="null" disabled>Bitte wählen ...</option>
         <option *ngFor="let item of config.items" [value]="item.value"> {{ item.label }} </option>
     </select>
 

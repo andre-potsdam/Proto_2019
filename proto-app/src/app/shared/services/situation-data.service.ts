@@ -3,28 +3,15 @@ import { SituationData } from '../api/model/situation-data';
 import { Observable } from 'rxjs';
 import { ValidationResult } from '../model/validation-result';
 import { SituationDataFieldId } from '../api/model/situation-data-field-id.enum';
+import { AbstractDataService } from './abstract-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SituationDataService {
+export class SituationDataService extends AbstractDataService<SituationData> {
 
-  constructor() { }
-
-  situationData: SituationData;
-
-  // Get data from service cache, or null.
-  get(): SituationData {
-    return this.situationData;
+  constructor() {
+    super();
   }
 
-  // Save data to service cache and browser persistent storage.
-  save(situationData: SituationData) {
-    this.situationData = situationData;
-  }
-
-  // Validation with backend request.
-  validate(situationData: SituationData): Observable<ValidationResult<SituationDataFieldId>> {
-    return null;
-  }
 }

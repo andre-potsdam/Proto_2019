@@ -1,0 +1,79 @@
+<!-- situation [0]-->
+<div class="page-list-item">
+    <div *ngIf="pageConfigs[0].isShowHeader()" class="page-list-item-header" [class.active]="pageConfigs[0].isShowEditor()"
+        (click)="pageHeaderClicked(0)">
+        <span>{{pageConfigs[0].pageHeaderTitle}}</span>
+    </div>
+
+    <div *ngIf="pageConfigs[0].isShowEditor()" class="page-list-item-panel" @myInsertRemoveTrigger>
+        <app-page010-situation (confirmed)="pageConfirmed(0)"></app-page010-situation>
+    </div>
+    <div *ngIf="pageConfigs[0].isShowViewer()" class="page-list-item-panel" @myInsertRemoveTrigger>
+        <app-page010-situation-viewer></app-page010-situation-viewer>
+    </div>
+    <div *ngIf="pageConfigs[0].isShowViewer()" class="page-modify-button-panel">
+        <button class="page-modify-button" (click)="pageModifyClicked($event,0)">
+            <span>{{properties.modify}}</span>
+        </button>
+    </div>
+</div>
+
+<!-- vehicle [1] -->
+<div class="page-list-item">
+    <div *ngIf="pageConfigs[1].isShowHeader()" class="page-list-item-header" [class.active]="pageConfigs[1].isShowEditor()"
+        (click)="pageHeaderClicked(1)">
+        <span>{{pageConfigs[1].pageHeaderTitle}}</span>
+    </div>
+
+    <div *ngIf="pageConfigs[1].isShowEditor()" class="page-list-item-panel" @myInsertRemoveTrigger>
+        <app-page020-vehicle (confirmed)="pageConfirmed(1)"></app-page020-vehicle>
+    </div>
+    <div *ngIf="pageConfigs[1].isShowViewer()" class="page-list-item-panel" @myInsertRemoveTrigger>
+        <span>Viewer for vehicle data ...</span>
+    </div>
+    <div *ngIf="pageConfigs[1].isShowViewer()" class="page-modify-button-panel">
+        <button class="page-modify-button" (click)="pageModifyClicked($event,1)">
+            <span>{{properties.modify}}</span>
+        </button>
+    </div>
+</div>
+
+<!-- third page [2] -->
+<div class="page-list-item">
+    <div *ngIf="pageConfigs[2].isShowHeader()" class="page-list-item-header" [class.active]="pageConfigs[2].isShowEditor()"
+        (click)="pageHeaderClicked(2)">
+        <span>{{pageConfigs[2].pageHeaderTitle}}</span>
+    </div>
+
+    <div *ngIf="pageConfigs[2].isShowEditor()" class="page-list-item-panel" @myInsertRemoveTrigger>
+        <span>editor for third page ...</span>
+    </div>
+    <div *ngIf="pageConfigs[2].isShowViewer()" class="page-list-item-panel" @myInsertRemoveTrigger>
+        <span>viewer for third page ...</span>
+    </div>
+    <div *ngIf="pageConfigs[2].isShowViewer()" class="page-modify-button-panel">
+        <button class="page-modify-button" (click)="pageModifyClicked($event,2)">
+            <span>{{properties.modify}}</span>
+        </button>
+    </div>
+</div>
+
+<!-- fourth page [3] -->
+<div class="page-list-item">
+    <div *ngIf="pageConfigs[3].isShowHeader()" class="page-list-item-header" [class.active]="pageConfigs[3].isShowEditor()"
+        (click)="pageHeaderClicked(3)">
+        <span>{{pageConfigs[3].pageHeaderTitle}}</span>
+    </div>
+
+    <div *ngIf="pageConfigs[3].isShowEditor()" class="page-list-item-panel" @myInsertRemoveTrigger>
+        <span>editor for fourth page ...</span>
+    </div>
+    <div *ngIf="pageConfigs[3].isShowViewer()" class="page-list-item-panel" @myInsertRemoveTrigger>
+        <span>viewer for fourth page ...</span>
+    </div>
+    <div *ngIf="pageConfigs[3].isShowViewer()" class="page-modify-button-panel">
+        <button class="page-modify-button" (click)="pageModifyClicked($event,3)">
+            <span>{{properties.modify}}</span>
+        </button>
+    </div>
+</div>

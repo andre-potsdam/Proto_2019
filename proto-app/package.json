@@ -25,7 +25,8 @@
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1",
     "primeicons": "^1.0.0",
-    "primeng": "^7.0.0"
+    "primeng": "^7.0.0",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.17",

@@ -1,0 +1,15 @@
+<div class="viewer-panel">
+
+    <!-- situation -->
+    <div class="viewer-item">
+        <span class="viewer-item-label">{{situationItem.label}}</span>
+        <span class="viewer-item-value">{{situationItem.value}}</span>
+    </div>
+
+    <!-- (optional) insurance begin -->
+    <div *ngIf="insuranceBeginItem" class="viewer-item">
+        <span class="viewer-item-label">{{insuranceBeginItem.label}}</span>
+        <span class="viewer-item-value">{{insuranceBeginItem.value}}</span>
+    </div>
+
+</div>

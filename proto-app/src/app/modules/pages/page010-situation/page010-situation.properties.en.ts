@@ -31,6 +31,6 @@ export class Page010SituationPropertiesEn implements Page010SituationProperties 
        testSelect_infoText = 'testSelect english info text';
 
        // submit button
-        submitButton_label = 'vehicle details';
+        submitButton_label = 'Proceed';
 
 }

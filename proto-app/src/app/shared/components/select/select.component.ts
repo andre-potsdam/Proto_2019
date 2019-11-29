@@ -24,6 +24,9 @@ export class SelectComponent implements OnInit, AfterViewInit, ControlValueAcces
 
   control: FormControl;
 
+  // use this value for option 'bitte wählen'
+  readonly VALUE_FOR_CHOOSE = null;
+
   onChange: any = () => { };
   onTouched: any = () => { };
 
@@ -40,18 +43,22 @@ export class SelectComponent implements OnInit, AfterViewInit, ControlValueAcces
     }
   }
 
-
+  // get value or null
   get selectedValue() {
     return this._selectedValue;
   }
 
+  // set value, or null resp. '' for 'please select' option
   set selectedValue(val) {
-    this._selectedValue = val;
+    this.writeValue(val);
     this.onChange(this._selectedValue);
     this.onTouched();
   }
 
   writeValue(val: any): void {
+    if (val === null || val === '') {
+      val = this.VALUE_FOR_CHOOSE;
+    }
     this._selectedValue = val;
   }
   registerOnChange(fn: any): void {

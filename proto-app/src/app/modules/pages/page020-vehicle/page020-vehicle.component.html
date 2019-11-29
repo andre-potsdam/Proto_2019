@@ -1,0 +1,55 @@
+<div class="page-panel">
+
+    <!-- page header -->
+    <span class="page-header" [innerHTML]="properties.pageHeader"></span>
+
+    <!-- vehicle form -->
+    <form [formGroup]="form">
+
+        <!-- vehicle group -->
+        <app-form-group formGroupName="vehicleGroup" [config]="vehicleGroupConfig">
+
+            <!-- manuf year select -->
+            <app-select formControlName="manufYear" [config]="manufYearConfig"></app-select>
+
+            <!-- purchase year select -->
+            <app-select formControlName="purchaseYear" [config]="purchaseYearConfig"></app-select>
+
+            <!-- vehicle selection kind (comfort search / hsn,tsn) -->
+            <app-radio formControlName="vehicleSelection" [config]="vehicleSelectionConfig"></app-radio>
+
+            <!-- HSN -->
+            <app-input formControlName="hsn" [config]="hsnConfig" *ngIf="isVisibleHsnTsn()"></app-input>
+            <!-- TSN -->
+            <app-input formControlName="tsn" [config]="tsnConfig" *ngIf="isVisibleHsnTsn()" class="appended">
+            </app-input>
+
+            <!-- manufacturer -->
+            <app-select formControlName="manufacturer" [config]="manufacturerConfig" *ngIf="!isVisibleHsnTsn()">
+            </app-select>
+            <!-- model -->
+            <app-select formControlName="model" [config]="modelChoiceConfig" *ngIf="!isVisibleHsnTsn()"
+                class="appended"></app-select>
+            <!-- fuel -->
+            <app-select formControlName="fuel" [config]="fuelConfig" *ngIf="!isVisibleHsnTsn()" class="appended">
+            </app-select>
+            <!-- TODO -->
+
+            <!-- financing -->
+            <app-radio formControlName="financing" [config]="financingConfig"></app-radio>
+
+        </app-form-group>
+
+        <div class="submit-button-panel">
+            <button type="submit" class="submit-button" (click)="onSubmit()"
+                [innerHtml]="properties.submitButton_label"></button>
+        </div>
+
+        <!-- <p></p>
+    <span>form value: {{form.value | json}}</span>
+    <p></p>
+    <span>form valid: {{form.valid | json}}</span> -->
+
+    </form>
+
+</div>
