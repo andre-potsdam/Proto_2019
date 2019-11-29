@@ -1,11 +1,15 @@
 <!-- label, control panel, info button, info, border, validation -->
 <app-form-row [config]="config">
 
-  <!-- radio option -->
-  <div *ngFor="let item of config.items; let i = index" class="radio-panel">
-    <input id="{{config.name+'_' + i}}" [name]="config.name" type="radio" class="radio-input" value="{{item.value}}"
-      [(ngModel)]="selectedValue">
-    <label class="radio-label" for="{{config.name+'_' + i}}">{{item.label}}</label>
+  <div class="radio-panel" [class.horizontal]="config.horizontalAlignment">
+
+    <!-- radio options -->
+    <div *ngFor="let item of config.items; let i = index" class="radio-option-panel">
+      <input id="{{config.name+'_' + i}}" [name]="config.name" type="radio" class="radio-input" value="{{item.value}}"
+        [(ngModel)]="selectedValue">
+      <label class="radio-label" for="{{config.name+'_' + i}}">{{item.label}}</label>
+    </div>
+    
   </div>
 
 </app-form-row>

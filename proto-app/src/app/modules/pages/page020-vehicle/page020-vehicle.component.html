@@ -25,13 +25,13 @@
             </app-input>
 
             <!-- manufacturer -->
-            <app-select formControlName="manufacturer" [config]="manufacturerConfig" *ngIf="!isVisibleHsnTsn()">
+            <app-select formControlName="manufacturer" [config]="manufacturerConfig" *ngIf="isVisibleComfortSearch()">
             </app-select>
             <!-- model -->
-            <app-select formControlName="model" [config]="modelChoiceConfig" *ngIf="!isVisibleHsnTsn()"
+            <app-select formControlName="model" [config]="modelChoiceConfig" *ngIf="isVisibleComfortSearch()"
                 class="appended"></app-select>
             <!-- fuel -->
-            <app-select formControlName="fuel" [config]="fuelConfig" *ngIf="!isVisibleHsnTsn()" class="appended">
+            <app-select formControlName="fuel" [config]="fuelConfig" *ngIf="isVisibleComfortSearch()" class="appended">
             </app-select>
             <!-- TODO -->
 

@@ -1,7 +1,7 @@
 import { EventEmitter, OnInit, Output } from '@angular/core';
 import { ConfigurationService } from '../services/configuration.service';
 import { DataService } from '../services/data.service';
-import { ValidatorFn, AbstractControl, FormGroup } from '@angular/forms';
+import { ValidatorFn, AbstractControl, FormGroup, FormControl } from '@angular/forms';
 import { DataState } from '../model/data-state.enum';
 
 
@@ -79,6 +79,15 @@ export abstract class AbstractDataEditor<T> implements OnInit {
       editor.validate();
       return null;
     };
+  }
+
+
+  // Set error at control, if no value.
+  validateRequired(control: FormControl, errorMsgKey: string): void {
+    if (control.value == null) {
+      // TODO: language string resolution
+      control.setErrors({ missingValue: errorMsgKey });
+    }
   }
 
 

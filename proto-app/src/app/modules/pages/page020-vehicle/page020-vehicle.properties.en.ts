@@ -3,11 +3,11 @@ import { Page020VehicleProperties } from './page020-vehicle.properties';
 export class Page020VehiclePropertiesEn implements Page020VehicleProperties {
 
     // page global
-    pageHeader = 'your car';
+    pageHeader = null;
 
 
     // vehicle group
-    vehicleGroup_title = 'car selection';
+    vehicleGroup_title = null;
     vehicleGroup_description = null;
 
 
@@ -34,6 +34,9 @@ export class Page020VehiclePropertiesEn implements Page020VehicleProperties {
     tsn_rowLabel = 'TSN';
     tsn_infoText = '3-character Code for your car, see Kfz-Zulassung';
 
+    // HSN/TSN
+    hsntsn_rowLabel = 'HSN / TSN';
+
     // manufacturer
     manufacturer_rowLabel = 'manufacturer';
     manufacturer_infoText = null;
@@ -53,8 +56,11 @@ export class Page020VehiclePropertiesEn implements Page020VehicleProperties {
     financing_rowLabel = 'active financing';
     financing_infoText = 'Do you have a credit or leasing?';
 
-    financing_no_label = 'yes';
-    financing_yes_label = 'no';
+    financing_no_label = 'no';
+    financing_yes_label = 'yes';
+
+    // vehicle description
+    vehicleDescription_rowLabel = 'vehicle';
 
 
     submitButton_label = 'Proceed';

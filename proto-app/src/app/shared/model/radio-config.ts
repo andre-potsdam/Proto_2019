@@ -3,6 +3,9 @@ import { SelectItem } from './select-item';
 
 export class RadioConfig extends FormControlConfig {
 
+    // in case of true, the options are aligned horizontally
+    horizontalAlignment: boolean;
+
     // List of options.
     items: SelectItem[];
 

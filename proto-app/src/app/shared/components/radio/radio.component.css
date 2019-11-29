@@ -1,4 +1,9 @@
-.radio-panel {
+.radio-panel.horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+.radio-option-panel {
     padding: 3px;
     margin: 3px;
     /* background-color: #d3d3d37a; */

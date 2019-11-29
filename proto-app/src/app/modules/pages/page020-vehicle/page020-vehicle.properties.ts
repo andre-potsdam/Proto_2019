@@ -34,6 +34,9 @@ export interface Page020VehicleProperties {
     tsn_rowLabel: string;
     tsn_infoText: string;
 
+    // HSN/TSN
+    hsntsn_rowLabel: string;
+
     // manufacturer
     manufacturer_rowLabel: string;
     manufacturer_infoText: string;
@@ -56,6 +59,8 @@ export interface Page020VehicleProperties {
     financing_no_label: string;
     financing_yes_label: string;
 
+    // vehicle description
+    vehicleDescription_rowLabel: string;
 
     submitButton_label: string;
 }

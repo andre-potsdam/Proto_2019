@@ -3,11 +3,11 @@ import { Page020VehicleProperties } from './page020-vehicle.properties';
 export class Page020VehiclePropertiesDe implements Page020VehicleProperties {
 
     // page global
-    pageHeader = 'Ihr Fahrzeug';
+    pageHeader = null;
 
 
     // vehicle group
-    vehicleGroup_title = 'Auswahl des Fahrzeugs';
+    vehicleGroup_title = null;
     vehicleGroup_description = null;
 
 
@@ -34,6 +34,9 @@ export class Page020VehiclePropertiesDe implements Page020VehicleProperties {
     tsn_rowLabel = 'TSN';
     tsn_infoText = '3-stelliger Code für das Fahrzeug, s. Kfz-Zulassung';
 
+    // HSN/TSN
+    hsntsn_rowLabel = 'HSN / TSN';
+
     // manufacturer
     manufacturer_rowLabel = 'Hersteller';
     manufacturer_infoText = null;
@@ -55,6 +58,9 @@ export class Page020VehiclePropertiesDe implements Page020VehicleProperties {
 
     financing_no_label = 'nein';
     financing_yes_label = 'ja';
+
+    // vehicle description
+    vehicleDescription_rowLabel = 'Fahrzeug';
 
 
     submitButton_label = 'Weiter';

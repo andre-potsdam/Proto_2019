@@ -1,5 +1,5 @@
 import { VehicleData } from './../../../shared/api/model/vehicle-data';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { FormGroupConfig } from 'src/app/shared/model/form-group-config';
 import { SelectConfig } from 'src/app/shared/model/select-config';
 import { InputConfig } from 'src/app/shared/model/input-config';
@@ -20,13 +20,10 @@ import { SelectItem } from 'src/app/shared/model/select-item';
 import { VehicleDataService } from 'src/app/shared/services/vehicle-data.service';
 import { DataState } from 'src/app/shared/model/data-state.enum';
 import { AbstractDataEditor } from 'src/app/shared/classes/abstract-data-editor';
+import { VehicleSelection } from 'src/app/shared/model/vehicle-selection.enum';
+import { Page020VehicleStaticData } from './page020-vehicle.staticData';
 
 
-
-enum VehicleSelection {
-  HSN_TSN = 'HSN_TSN',
-  COMFORT_SEARCH = 'COMFORT_SEARCH',
-}
 
 @Component({
   selector: 'app-page020-vehicle',
@@ -86,49 +83,18 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> {
     this.vehicleGroupConfig = new FormGroupConfig('vehicleGroup');
 
     this.manufYearConfig = new SelectConfig('manufYear', true, this.getYearSelectItems(1970));
-
     this.purchaseYearConfig = new SelectConfig('purchaseYear', false, this.getYearSelectItems(1970));
 
-    this.vehicleSelectionConfig = new RadioConfig(
-      'vehicleSelection',
-      false,
-      [{ value: VehicleSelection.HSN_TSN, labelKey: 'vehicleSelection_hsntsn_label' },
-      { value: VehicleSelection.COMFORT_SEARCH, labelKey: 'vehicleSelection_comfortSearch_label' },
-      ]);
-
+    this.vehicleSelectionConfig = new RadioConfig('vehicleSelection', false, Page020VehicleStaticData.vehicleSelectionChoiceItems);
     this.hsnConfig = new InputConfig('hsn', 'text', false);
     this.tsnConfig = new InputConfig('tsn', 'text', false);
 
-    this.manufacturerConfig = new SelectConfig(
-      'manufacturer', false,
-      [{ value: 'Audi', label: 'Audi' },
-      { value: 'BMW', label: 'BMW' },
-      { value: 'Ford', label: 'Ford' },
-      { value: 'VW', label: 'VW' },
-      ]
-    );
+    this.manufacturerConfig = new SelectConfig('manufacturer', false, Page020VehicleStaticData.manufacturerItems);
+    this.modelChoiceConfig = new SelectConfig('model', false, Page020VehicleStaticData.modelItems);
+    this.fuelConfig = new RadioConfig('fuel', false, Page020VehicleStaticData.fuelItems);
 
-    this.modelChoiceConfig = new SelectConfig(
-      'model', false,
-      [{ value: 'Golf', label: 'Golf' },
-      { value: 'Passat', label: 'Passat' },
-      { value: 'Polo', label: 'Polo' },
-      { value: 'Tiguan', label: 'Tiguan' },
-      ]
-    );
-
-    this.fuelConfig = new RadioConfig(
-      'fuel', false,
-      [{ value: 'Benzin', labelKey: 'fuel_benzin_label' },
-      { value: 'Diesel', labelKey: 'fuel_diesel_label' },
-      ]);
-
-    this.financingConfig = new RadioConfig(
-      'financing',
-      false,
-      [{ value: 'false', labelKey: 'financing_no_label' },
-      { value: 'true', labelKey: 'financing_yes_label' },
-      ]);
+    this.financingConfig = new RadioConfig('financing', false, Page020VehicleStaticData.financingItems);
+    this.financingConfig.horizontalAlignment = true;
 
     // ensure, that only one info text is shown
     this.configGroup = new ConfigGroup(
@@ -163,7 +129,7 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> {
         model: this.modelChoiceControl,
         fuel: this.fuelControl,
         financing: this.financingControl,
-      })
+      }, this.createValidator(this))
     });
   }
 
@@ -189,7 +155,9 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> {
 
     this.manufYearControl.setValue(data.manufYear);
     this.purchaseYearControl.setValue(data.purchaseYear);
-    this.vehicleSelectionControl.setValue(VehicleSelection.HSN_TSN);
+    if (data.hsn) {
+      this.vehicleSelectionControl.setValue(VehicleSelection.HSN_TSN);
+    }
     this.hsnControl.setValue(data.hsn);
     this.tsnControl.setValue(data.tsn);
     this.financingControl.setValue(data.financing);
@@ -228,31 +196,28 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> {
 
   // @override
   protected validate() {
-    console.log('validating ...');
 
     if (!this.form) {
       return;
     }
 
-    // // insurance begin choice
-    // let control = this.form.get('situationGroup.insuranceBeginChoice');
-    // if (!this.isVisibleInsuranceBeginChoice()) {
-    //   control.setErrors(null);
-    // } else {
-    //   if (control.value == null) {
-    //     control.setErrors({ missingValue: 'Bitte treffen Sie eine Auswahl' });
-    //   }
-    // }
+    // HSN/TSN
+    this.hsnControl.setErrors(null);
+    this.tsnControl.setErrors(null);
+    if (this.isVisibleHsnTsn()) {
+      this.validateRequired(this.hsnControl, 'error_msg_key');
+      this.validateRequired(this.tsnControl, 'error_msg_key');
+    }
 
-    // // insuranceBeginDate
-    // control = this.form.get('situationGroup.insuranceBeginDate');
-    // if (!this.isVisibleInsuranceBeginDate()) {
-    //   control.setErrors(null);
-    // } else {
-    //   if (!control.value) {
-    //     control.setErrors({ missingValue: 'Bitte treffen Sie eine Auswahl' });
-    //   }
-    // }
+    // manufacturer/model/fuel
+    this.manufacturerControl.setErrors(null);
+    this.modelChoiceControl.setErrors(null);
+    this.fuelControl.setErrors(null);
+    if (this.isVisibleComfortSearch()) {
+      this.validateRequired(this.manufacturerControl, 'error_msg_key');
+      this.validateRequired(this.modelChoiceControl, 'error_msg_key');
+      this.validateRequired(this.fuelControl, 'error_msg_key');
+    }
   }
 
 
@@ -281,7 +246,19 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> {
   }
 
 
+  isVisibleComfortSearch(): boolean {
+    return this.vehicleSelectionControl && this.vehicleSelectionControl.value === VehicleSelection.COMFORT_SEARCH;
+  }
+
+
   onSubmit() {
+
+    // search vehicle
+    if (this.isVisibleComfortSearch()) {
+      this.hsnControl.setValue('0603');
+      this.tsnControl.setValue('CDY');
+    }
+
     this.confirm(this.form);
   }
 

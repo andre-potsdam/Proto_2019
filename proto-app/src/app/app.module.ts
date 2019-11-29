@@ -15,6 +15,7 @@ import { PageListComponent } from './modules/pages/page-list/page-list.component
 import { HeaderComponent } from './shared/components/header/header.component';
 import { Page010SituationViewerComponent } from './modules/pages/page010-situation-viewer/page010-situation-viewer.component';
 import { InputDateComponent } from './shared/components/input-date/input-date.component';
+import { Page020VehicleViewerComponent } from './modules/pages/page020-vehicle-viewer/page020-vehicle-viewer.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { InputDateComponent } from './shared/components/input-date/input-date.co
     PageListComponent,
     HeaderComponent,
     Page010SituationViewerComponent,
-    InputDateComponent
+    InputDateComponent,
+    Page020VehicleViewerComponent
   ],
   imports: [
     BrowserModule,
