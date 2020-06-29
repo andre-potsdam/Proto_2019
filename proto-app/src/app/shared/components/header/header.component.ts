@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     this.languageImage = HeaderComponent.IMAGE_GERMANY;
   }
 
-  toggleLanguage() {
+  toggleLanguage(event: any) {
     this.configService.toggleLanguage();
     switch (this.configService.getLanguage()) {
       case Language.EN:

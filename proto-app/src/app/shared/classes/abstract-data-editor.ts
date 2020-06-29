@@ -1,4 +1,4 @@
-import { EventEmitter, OnInit, Output } from '@angular/core';
+import { EventEmitter, OnInit, Output, Directive } from '@angular/core';
 import { ConfigurationService } from '../services/configuration.service';
 import { DataService } from '../services/data.service';
 import { ValidatorFn, AbstractControl, FormGroup, FormControl } from '@angular/forms';
@@ -6,6 +6,7 @@ import { DataState } from '../model/data-state.enum';
 
 
 // Base class for data editor components.
+@Directive()
 export abstract class AbstractDataEditor<T> implements OnInit {
 
   // fire event asynchronously (!), if data are valid and submitted
