@@ -1,9 +1,10 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { ConfigurationService } from '../services/configuration.service';
 import { DataService } from '../services/data.service';
 import { SelectItem } from '../model/select-item';
 import * as moment from 'moment';
 
+@Directive()
 export abstract class AbstractDataViewer<T> implements OnInit {
 
     constructor(protected configService: ConfigurationService, protected dataService: DataService<T>) {
