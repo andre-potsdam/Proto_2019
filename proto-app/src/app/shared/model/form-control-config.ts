@@ -28,6 +28,7 @@ export class FormControlConfig {
     this.showInfoSubject.next(this);
   }
 
+
   readonly showInfoSubject = new Subject<FormControlConfig>();
 
   // Keys for language dependent properties.
@@ -40,6 +41,11 @@ export class FormControlConfig {
 
     this.keyForRowLabel = this.name + '_rowLabel';
     this.keyForInfoText = this.name + '_infoText';
+  }
+
+
+  isInfoAvailable() {
+    return this.infoText;
   }
 
 

@@ -1,3 +1,4 @@
+import { Page020VehiclePropertiesEs } from './../page020-vehicle/page020-vehicle.properties.es';
 import { Component, OnInit } from '@angular/core';
 import { VehicleData } from 'src/app/shared/api/model/vehicle-data';
 import { AbstractDataViewer } from 'src/app/shared/classes/abstract-data-viewer';
@@ -50,6 +51,10 @@ export class Page020VehicleViewerComponent extends AbstractDataViewer<VehicleDat
     switch (this.configService.getLanguage()) {
       case Language.EN: {
         this.properties = new Page020VehiclePropertiesEn();
+        break;
+      }
+      case Language.ES: {
+        this.properties = new Page020VehiclePropertiesEs();
         break;
       }
       default: {

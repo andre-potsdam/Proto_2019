@@ -2,3 +2,7 @@
 input {
     width: 99%;
 }
+
+input.with-postfix {
+    width: 40%;
+}

@@ -9,10 +9,10 @@ export class PageListPropertiesEn implements PageListProperties {
     vehicle_pageHeaderTitle = 'Vehicle';
 
     // page: drivers
-    drivers_pageHeaderTitle = 'Drivers';
+    drivers_pageHeaderTitle = 'Vehicle Usage';
 
     // page: insurance
-    insurance_pageHeaderTitle = 'Insurance';
+    insurance_pageHeaderTitle = 'Drivers';
 
     // modify button
     modify = 'Modify';

@@ -7,7 +7,7 @@ import { InputConfig } from 'src/app/shared/model/input-config';
 import { Language } from 'src/app/shared/model/language.enum';
 import { ConfigurationService } from 'src/app/shared/services/configuration.service';
 import { SituationDataService } from 'src/app/shared/services/situation-data.service';
-import { ConfigGroup } from 'src/app/shared/util/config-group';
+import { ConfigGroup } from 'src/app/shared/model/config-group';
 import { SituationData } from './../../../shared/api/model/situation-data';
 import { RadioConfig } from './../../../shared/model/radio-config';
 import { Page010SituationProperties } from './page010-situation.properties';
@@ -16,6 +16,7 @@ import { Page010SituationPropertiesEn } from './page010-situation.properties.en'
 import { Page010SituationStaticData } from './page010-situation.staticData';
 import { InsuranceBegin } from 'src/app/shared/model/insurance-begin.enum';
 import * as moment from 'moment';
+import { Page010SituationPropertiesEs } from './page010-situation.properties.es';
 
 
 @Component({
@@ -152,6 +153,10 @@ export class Page010SituationComponent extends AbstractDataEditor<SituationData>
     switch (this.configService.getLanguage()) {
       case Language.EN: {
         this.properties = new Page010SituationPropertiesEn();
+        break;
+      }
+      case Language.ES: {
+        this.properties = new Page010SituationPropertiesEs();
         break;
       }
       default: {

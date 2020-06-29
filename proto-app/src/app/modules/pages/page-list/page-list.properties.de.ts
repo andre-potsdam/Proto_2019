@@ -8,11 +8,11 @@ export class PageListPropertiesDe implements PageListProperties {
     // page: vehicle
     vehicle_pageHeaderTitle = 'Fahrzeug';
 
-    // page: drivers
-    drivers_pageHeaderTitle = 'Fahrer';
+    // page: vehicle usage
+    drivers_pageHeaderTitle = 'Fahrzeugnutzung';
 
     // page: insurance
-    insurance_pageHeaderTitle = 'Rabatte';
+    insurance_pageHeaderTitle = 'Fahrer';
 
     // modify button
     modify = 'Bearbeiten';

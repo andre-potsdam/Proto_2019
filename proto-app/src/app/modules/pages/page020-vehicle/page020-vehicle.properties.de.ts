@@ -21,18 +21,18 @@ export class Page020VehiclePropertiesDe implements Page020VehicleProperties {
 
     // vehicle selection
     vehicleSelection_rowLabel = 'Wählen Sie Ihr Auto aus';
-    vehicleSelection_infoText = '<b>Fahrzeugauswahl</b><p></p>Entweder über HSN/TSN oder mit Angabe Hersteller/Modell/...';
+    vehicleSelection_infoText = '<b>Fahrzeugauswahl</b><br>Entweder über HSN/TSN oder mit Angabe Hersteller/Modell/...';
 
     vehicleSelection_hsntsn_label = 'Auswahl per Fahrzeugschein';
     vehicleSelection_comfortSearch_label = 'Auswahl mit der Pkw-Komfortsuche';
 
     // HSN
     hsn_rowLabel = 'HSN';
-    hsn_infoText = '4-stellige Nummer des Herstellers, s. Kfs Zulassung';
+    hsn_infoText = '<b>HSN</b><br>4-stellige Nummer des Herstellers, s. Kfs Zulassung';
 
     // TSN
     tsn_rowLabel = 'TSN';
-    tsn_infoText = '3-stelliger Code für das Fahrzeug, s. Kfz-Zulassung';
+    tsn_infoText = '<b>TSN</b><br>3-stelliger Code für das Fahrzeug, s. Kfz-Zulassung';
 
     // HSN/TSN
     hsntsn_rowLabel = 'HSN / TSN';
@@ -54,7 +54,7 @@ export class Page020VehiclePropertiesDe implements Page020VehicleProperties {
 
     // financing
     financing_rowLabel = 'Laufende Finanzierung';
-    financing_infoText = 'Finanzieren Sie das Fahrzeug über einen Kredit bzw. Leasing?';
+    financing_infoText = '<b>Finanzierung</b><br>Finanzieren Sie das Fahrzeug über einen Kredit bzw. Leasing?';
 
     financing_no_label = 'nein';
     financing_yes_label = 'ja';

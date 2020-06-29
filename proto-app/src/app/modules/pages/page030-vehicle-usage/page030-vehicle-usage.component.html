@@ -1,0 +1,49 @@
+<div class="page-panel">
+
+    <!-- page header -->
+    <span class="page-header" [innerHTML]="properties.pageHeader"></span>
+  
+    <!-- vehicle usage form -->
+    <form [formGroup]="form">
+  
+      <!-- situation group -->
+      <app-form-group formGroupName="vehicleUsageGroup" [config]="vehicleUsageGroupConfig">
+  
+        <!-- usage kind -->
+        <app-radio formControlName="usageKind" [config]="usageKindConfig"></app-radio>
+  
+        <!-- milage -->
+        <app-input formControlName="milage" [config]="milageConfig"></app-input>
+  
+
+        <!-- season plate choice -->
+        <app-radio formControlName="seasonPlateChoice" [config]="seasonPlateChoiceConfig"></app-radio>
+
+        <!-- season plate begin -->
+        <app-select formControlName="seasonPlateBegin" [config]="seasonPlateBeginConfig" *ngIf="isSeasonPlate()"></app-select>
+
+        <!-- season plate end -->
+        <app-select formControlName="seasonPlateEnd" [config]="seasonPlateEndConfig" *ngIf="isSeasonPlate()"></app-select>
+
+
+        <!-- home ownership -->
+        <app-select formControlName="homeOwnership" [config]="homeOwnershipConfig"></app-select>
+
+        <!-- parking place -->
+        <app-select formControlName="parkingPlace" [config]="parkingPlaceConfig"></app-select>
+
+      </app-form-group>
+  
+      <div class="submit-button-panel">
+        <button type="submit" class="submit-button" (click)="onSubmit()"
+          [innerHtml]="properties.submitButton_label"></button>
+      </div>
+  
+      <!-- <p></p>
+    <span>form value: {{form.value | json}}</span>
+    <p></p>
+    <span>form valid: {{form.valid | json}}</span> -->
+  
+    </form>
+  
+  </div>

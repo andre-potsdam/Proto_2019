@@ -1,0 +1,99 @@
+import { Page030VehicleUsagePropertiesEs } from './../page030-vehicle-usage/page030-vehicle-usage.properties.es';
+import { Component, OnInit } from '@angular/core';
+import { VehicleUsageData } from 'src/app/shared/api/model/vehicle-usage-data';
+import { AbstractDataViewer } from 'src/app/shared/classes/abstract-data-viewer';
+import { DataItem } from 'src/app/shared/model/data-item';
+import { Language } from 'src/app/shared/model/language.enum';
+import { ConfigurationService } from 'src/app/shared/services/configuration.service';
+import { VehicleUsageDataService } from 'src/app/shared/services/vehicle-usage-data.service';
+import { Page020VehicleStaticData } from '../page020-vehicle/page020-vehicle.staticData';
+import { Page030VehicleUsageProperties } from '../page030-vehicle-usage/page030-vehicle-usage.properties';
+import { Page030VehicleUsagePropertiesDe } from '../page030-vehicle-usage/page030-vehicle-usage.properties.de';
+import { Page030VehicleUsagePropertiesEn } from '../page030-vehicle-usage/page030-vehicle-usage.properties.en';
+import { Page030VehicleUsageStaticData } from '../page030-vehicle-usage/page030-vehicle-usage.staticData';
+
+@Component({
+  selector: 'app-page030-vehicle-usage-viewer',
+  templateUrl: './page030-vehicle-usage-viewer.component.html',
+  styleUrls: ['./page030-vehicle-usage-viewer.component.css']
+})
+export class Page030VehicleUsageViewerComponent extends AbstractDataViewer<VehicleUsageData> implements OnInit {
+
+  properties: Page030VehicleUsageProperties;
+
+  usageKindItem: DataItem;
+  milageItem: DataItem;
+  seasonPlateChoiceItem: DataItem;
+  seasonPlateBeginItem: DataItem;
+  seasonPlateEndItem: DataItem;
+  homeOwnershipItem: DataItem;
+  parkingPlaceItem: DataItem;
+
+
+  constructor(configService: ConfigurationService, dataService: VehicleUsageDataService) {
+    super(configService, dataService);
+  }
+
+
+  // @override
+  protected initData(data: VehicleUsageData) {
+
+    this.usageKindItem = new DataItem('usageKind_rowLabel');
+    this.usageKindItem.valueKey = this.getValueKey(Page030VehicleUsageStaticData.usageKindItems, data.usageKind);
+
+    this.milageItem = new DataItem('milage_rowLabel', String(data.milage));
+
+    this.seasonPlateChoiceItem = new DataItem('seasonPlateChoice_rowLabel');
+    this.seasonPlateChoiceItem.valueKey = this.getValueKey(Page030VehicleUsageStaticData.seasonPlateChoiceItems,
+      (data.isSeasonPlate ? 'true' : 'false'));
+
+    if (data.isSeasonPlate) {
+      this.seasonPlateBeginItem = new DataItem('seasonPlateBegin_rowLabel');
+      this.seasonPlateBeginItem.valueKey = this.getValueKey(Page030VehicleUsageStaticData.seasonPlateMonthItems,
+        String(data.seasonPlateBeginMonth));
+
+      this.seasonPlateEndItem = new DataItem('seasonPlateEnd_rowLabel');
+      this.seasonPlateEndItem.valueKey = this.getValueKey(Page030VehicleUsageStaticData.seasonPlateMonthItems,
+        String(data.seasonPlateEndMonth));
+    }
+
+    this.homeOwnershipItem = new DataItem('homeOwnership_rowLabel');
+    this.homeOwnershipItem.valueKey = this.getValueKey(Page030VehicleUsageStaticData.homeOwnershipItems, data.homeOwnership);
+
+    this.parkingPlaceItem = new DataItem('parkingPlace_rowLabel');
+    this.parkingPlaceItem.valueKey = this.getValueKey(Page030VehicleUsageStaticData.parkingPlaceItems, data.parkingPlace);
+  }
+
+
+  // @override
+  protected updateLanguageStrings() {
+
+    switch (this.configService.getLanguage()) {
+      case Language.EN: {
+        this.properties = new Page030VehicleUsagePropertiesEn();
+        break;
+      }
+      case Language.ES: {
+        this.properties = new Page030VehicleUsagePropertiesEs();
+        break;
+      }
+      default: {
+        this.properties = new Page030VehicleUsagePropertiesDe();
+      }
+    }
+
+    this.usageKindItem.updateLanguageStrings(this.properties);
+    this.milageItem.updateLanguageStrings(this.properties);
+    this.seasonPlateChoiceItem.updateLanguageStrings(this.properties);
+    if (this.seasonPlateBeginItem) {
+      this.seasonPlateBeginItem.updateLanguageStrings(this.properties);
+    }
+    if (this.seasonPlateEndItem) {
+      this.seasonPlateEndItem.updateLanguageStrings(this.properties);
+    }
+    this.homeOwnershipItem.updateLanguageStrings(this.properties);
+    this.parkingPlaceItem.updateLanguageStrings(this.properties);
+
+  }
+
+}

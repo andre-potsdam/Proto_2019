@@ -1,7 +1,8 @@
 <!-- situation [0]-->
 <div class="page-list-item">
     <div *ngIf="pageConfigs[0].isShowHeader()" class="page-list-item-header"
-        [class.active]="pageConfigs[0].isShowEditor()" (click)="pageHeaderClicked(0)">
+        [class.active]="pageConfigs[0].isShowEditor()" [class.collapsed]="pageConfigs[0].isCollapsed()"
+        (click)="pageHeaderClicked(0)">
         <span>{{pageConfigs[0].pageHeaderTitle}}</span>
     </div>
 
@@ -21,7 +22,8 @@
 <!-- vehicle [1] -->
 <div class="page-list-item">
     <div *ngIf="pageConfigs[1].isShowHeader()" class="page-list-item-header"
-        [class.active]="pageConfigs[1].isShowEditor()" (click)="pageHeaderClicked(1)">
+        [class.active]="pageConfigs[1].isShowEditor()" [class.collapsed]="pageConfigs[1].isCollapsed()"
+        (click)="pageHeaderClicked(1)">
         <span>{{pageConfigs[1].pageHeaderTitle}}</span>
     </div>
 
@@ -38,18 +40,19 @@
     </div>
 </div>
 
-<!-- third page [2] -->
+<!-- vehicle usage [2] -->
 <div class="page-list-item">
     <div *ngIf="pageConfigs[2].isShowHeader()" class="page-list-item-header"
-        [class.active]="pageConfigs[2].isShowEditor()" (click)="pageHeaderClicked(2)">
+        [class.active]="pageConfigs[2].isShowEditor()" [class.collapsed]="pageConfigs[2].isCollapsed()"
+        (click)="pageHeaderClicked(2)">
         <span>{{pageConfigs[2].pageHeaderTitle}}</span>
     </div>
 
     <div *ngIf="pageConfigs[2].isShowEditor()" class="page-list-item-panel" @myInsertRemoveTrigger>
-        <span>editor for third page ...</span>
+        <app-page030-vehicle-usage (confirmed)="pageConfirmed(2)"></app-page030-vehicle-usage>
     </div>
     <div *ngIf="pageConfigs[2].isShowViewer()" class="page-list-item-panel" @myInsertRemoveTrigger>
-        <span>viewer for third page ...</span>
+        <app-page030-vehicle-usage-viewer></app-page030-vehicle-usage-viewer>
     </div>
     <div *ngIf="pageConfigs[2].isShowViewer()" class="page-modify-button-panel">
         <button class="page-modify-button" (click)="pageModifyClicked($event,2)">
@@ -61,7 +64,8 @@
 <!-- fourth page [3] -->
 <div class="page-list-item">
     <div *ngIf="pageConfigs[3].isShowHeader()" class="page-list-item-header"
-        [class.active]="pageConfigs[3].isShowEditor()" (click)="pageHeaderClicked(3)">
+        [class.active]="pageConfigs[3].isShowEditor()" [class.collapsed]="pageConfigs[3].isCollapsed()"
+        (click)="pageHeaderClicked(3)">
         <span>{{pageConfigs[3].pageHeaderTitle}}</span>
     </div>
 

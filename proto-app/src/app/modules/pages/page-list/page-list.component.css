@@ -26,6 +26,11 @@
     color: white;
 }
 
+.page-list-item-header.collapsed span::after {
+    content: " ...";
+    font-weight: bolder;
+}
+
 .page-list-item-panel {
     margin-top: 15px;
     /* background-color: white; */

@@ -9,6 +9,7 @@ import { Page010SituationPropertiesDe } from '../page010-situation/page010-situa
 import { Page010SituationPropertiesEn } from '../page010-situation/page010-situation.properties.en';
 import { SituationDataService } from './../../../shared/services/situation-data.service';
 import { Page010SituationStaticData } from './../page010-situation/page010-situation.staticData';
+import { Page010SituationPropertiesEs } from '../page010-situation/page010-situation.properties.es';
 
 @Component({
   selector: 'app-page010-situation-viewer',
@@ -48,6 +49,10 @@ export class Page010SituationViewerComponent extends AbstractDataViewer<Situatio
     switch (this.configService.getLanguage()) {
       case Language.EN: {
         this.properties = new Page010SituationPropertiesEn();
+        break;
+      }
+      case Language.ES: {
+        this.properties = new Page010SituationPropertiesEs();
         break;
       }
       default: {

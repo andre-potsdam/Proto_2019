@@ -10,6 +10,7 @@ import { Page010SituationPropertiesEn } from '../page010-situation/page010-situa
 import { Page010SituationPropertiesDe } from '../page010-situation/page010-situation.properties.de';
 import { PageListPropertiesEn } from './page-list.properties.en';
 import { PageListPropertiesDe } from './page-list.properties.de';
+import { PageListPropertiesEs } from './page-list.properties.es';
 
 
 @Component({
@@ -64,6 +65,10 @@ export class PageListComponent implements OnInit {
     switch (this.configService.getLanguage()) {
       case Language.EN: {
         this.properties = new PageListPropertiesEn();
+        break;
+      }
+      case Language.ES: {
+        this.properties = new PageListPropertiesEs();
         break;
       }
       default: {

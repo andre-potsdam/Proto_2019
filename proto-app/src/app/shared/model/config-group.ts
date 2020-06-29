@@ -1,4 +1,4 @@
-import { FormControlConfig } from '../model/form-control-config';
+import { FormControlConfig } from './form-control-config';
 
 export class ConfigGroup {
 

@@ -20,6 +20,8 @@ export class ConfigurationService {
     toggleLanguage() {
         if (this.language === Language.DE) {
             this.language = Language.EN;
+        } else if (this.language === Language.EN) {
+            this.language = Language.ES;
         } else {
             this.language = Language.DE;
         }

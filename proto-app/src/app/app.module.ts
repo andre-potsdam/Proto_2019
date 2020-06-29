@@ -16,6 +16,8 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { Page010SituationViewerComponent } from './modules/pages/page010-situation-viewer/page010-situation-viewer.component';
 import { InputDateComponent } from './shared/components/input-date/input-date.component';
 import { Page020VehicleViewerComponent } from './modules/pages/page020-vehicle-viewer/page020-vehicle-viewer.component';
+import { Page030VehicleUsageComponent } from './modules/pages/page030-vehicle-usage/page030-vehicle-usage.component';
+import { Page030VehicleUsageViewerComponent } from './modules/pages/page030-vehicle-usage-viewer/page030-vehicle-usage-viewer.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { Page020VehicleViewerComponent } from './modules/pages/page020-vehicle-v
     HeaderComponent,
     Page010SituationViewerComponent,
     InputDateComponent,
-    Page020VehicleViewerComponent
+    Page020VehicleViewerComponent,
+    Page030VehicleUsageComponent,
+    Page030VehicleUsageViewerComponent
   ],
   imports: [
     BrowserModule,

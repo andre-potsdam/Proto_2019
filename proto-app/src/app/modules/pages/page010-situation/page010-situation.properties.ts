@@ -33,11 +33,6 @@ export interface Page010SituationProperties {
         insuranceBeginDate_infoText: string;
 
 
-        // testSelect
-        testSelect_rowLabel: string;
-        testSelect_infoText: string;
-
-
         // submit button
         submitButton_label: string;
 

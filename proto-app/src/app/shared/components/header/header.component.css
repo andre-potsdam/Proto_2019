@@ -16,6 +16,7 @@
     margin-bottom: -50px;
 }
 
-#xtoggle-language-button {
-    height: 15px;
+#language-icon {
+    width: 40px;
+    height: 25px;
 }

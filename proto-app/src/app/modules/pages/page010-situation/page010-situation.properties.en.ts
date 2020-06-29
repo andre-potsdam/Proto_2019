@@ -3,10 +3,10 @@ import { Page010SituationProperties } from './page010-situation.properties';
 export class Page010SituationPropertiesEn implements Page010SituationProperties {
 
         // page global
-        pageHeader = 'Calculate your personal offer here';
+        pageHeader = null;
 
         // situation group
-        situationGroup_title = 'Your Situation';
+        situationGroup_title = null;
         situationGroup_description = null;
 
         // situation choice
@@ -25,10 +25,6 @@ export class Page010SituationPropertiesEn implements Page010SituationProperties 
         // insurance begin date
         insuranceBeginDate_rowLabel = null;
         insuranceBeginDate_infoText = null;
-
-       // testSelect
-       testSelect_rowLabel = 'testSelect english lable';
-       testSelect_infoText = 'testSelect english info text';
 
        // submit button
         submitButton_label = 'Proceed';

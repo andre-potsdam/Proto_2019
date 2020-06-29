@@ -84,7 +84,7 @@ export abstract class AbstractDataEditor<T> implements OnInit {
 
   // Set error at control, if no value.
   validateRequired(control: FormControl, errorMsgKey: string): void {
-    if (control.value == null) {
+    if (control.value == null || control.value === '') {
       // TODO: language string resolution
       control.setErrors({ missingValue: errorMsgKey });
     }

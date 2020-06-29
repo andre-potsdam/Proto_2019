@@ -1,26 +1,21 @@
-import { VehicleData } from './../../../shared/api/model/vehicle-data';
-import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractDataEditor } from 'src/app/shared/classes/abstract-data-editor';
+import { ConfigGroup } from 'src/app/shared/model/config-group';
 import { FormGroupConfig } from 'src/app/shared/model/form-group-config';
-import { SelectConfig } from 'src/app/shared/model/select-config';
 import { InputConfig } from 'src/app/shared/model/input-config';
-import { ConfigGroup } from 'src/app/shared/util/config-group';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { ConfigurationService } from 'src/app/shared/services/configuration.service';
-import { SituationDataService } from 'src/app/shared/services/situation-data.service';
-import { RadioConfig } from 'src/app/shared/model/radio-config';
-import { Situation } from 'src/app/shared/api/model/situation.enum';
 import { Language } from 'src/app/shared/model/language.enum';
-import { Page010SituationPropertiesEn } from '../page010-situation/page010-situation.properties.en';
-import { Page010SituationPropertiesDe } from '../page010-situation/page010-situation.properties.de';
-import { Page010SituationComponent } from '../page010-situation/page010-situation.component';
+import { RadioConfig } from 'src/app/shared/model/radio-config';
+import { SelectConfig } from 'src/app/shared/model/select-config';
+import { SelectItem } from 'src/app/shared/model/select-item';
+import { VehicleSelection } from 'src/app/shared/model/vehicle-selection.enum';
+import { ConfigurationService } from 'src/app/shared/services/configuration.service';
+import { VehicleDataService } from 'src/app/shared/services/vehicle-data.service';
+import { VehicleData } from './../../../shared/api/model/vehicle-data';
 import { Page020VehicleProperties } from './page020-vehicle.properties';
 import { Page020VehiclePropertiesDe } from './page020-vehicle.properties.de';
 import { Page020VehiclePropertiesEn } from './page020-vehicle.properties.en';
-import { SelectItem } from 'src/app/shared/model/select-item';
-import { VehicleDataService } from 'src/app/shared/services/vehicle-data.service';
-import { DataState } from 'src/app/shared/model/data-state.enum';
-import { AbstractDataEditor } from 'src/app/shared/classes/abstract-data-editor';
-import { VehicleSelection } from 'src/app/shared/model/vehicle-selection.enum';
+import { Page020VehiclePropertiesEs } from './page020-vehicle.properties.es';
 import { Page020VehicleStaticData } from './page020-vehicle.staticData';
 
 
@@ -30,7 +25,7 @@ import { Page020VehicleStaticData } from './page020-vehicle.staticData';
   templateUrl: './page020-vehicle.component.html',
   styleUrls: ['./page020-vehicle.component.css']
 })
-export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> {
+export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> implements OnInit {
 
   // language dependent properties
   properties: Page020VehicleProperties;
@@ -182,6 +177,10 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> {
     switch (this.configService.getLanguage()) {
       case Language.EN: {
         this.properties = new Page020VehiclePropertiesEn();
+        break;
+      }
+      case Language.ES: {
+        this.properties = new Page020VehiclePropertiesEs();
         break;
       }
       default: {

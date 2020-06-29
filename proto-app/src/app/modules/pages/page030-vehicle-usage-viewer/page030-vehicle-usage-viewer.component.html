@@ -1,0 +1,45 @@
+<div class="viewer-panel">
+
+    <!-- usage kind -->
+    <div class="viewer-item">
+        <span class="viewer-item-label">{{usageKindItem.label}}</span>
+        <span class="viewer-item-value">{{usageKindItem.value}}</span>
+    </div>
+
+    <!-- milage -->
+    <div class="viewer-item">
+        <span class="viewer-item-label">{{milageItem.label}}</span>
+        <span class="viewer-item-value">{{milageItem.value}} 000</span>
+    </div>
+
+    <!-- season plate choice -->
+    <div class="viewer-item">
+        <span class="viewer-item-label">{{seasonPlateChoiceItem.label}}</span>
+        <span class="viewer-item-value">{{seasonPlateChoiceItem.value}}</span>
+    </div>
+
+    <!-- (optional) season plate begin -->
+    <div *ngIf="seasonPlateBeginItem" class="viewer-item">
+        <span class="viewer-item-label">{{seasonPlateBeginItem.label}}</span>
+        <span class="viewer-item-value">{{seasonPlateBeginItem.value}}</span>
+    </div>
+
+    <!-- (optional) season plate end -->
+    <div *ngIf="seasonPlateEndItem" class="viewer-item">
+        <span class="viewer-item-label">{{seasonPlateEndItem.label}}</span>
+        <span class="viewer-item-value">{{seasonPlateEndItem.value}}</span>
+    </div>
+
+    <!-- home ownership -->
+    <div class="viewer-item">
+        <span class="viewer-item-label">{{homeOwnershipItem.label}}</span>
+        <span class="viewer-item-value">{{homeOwnershipItem.value}}</span>
+    </div>
+
+    <!-- parking place -->
+    <div class="viewer-item">
+        <span class="viewer-item-label">{{parkingPlaceItem.label}}</span>
+        <span class="viewer-item-value">{{parkingPlaceItem.value}}</span>
+    </div>
+
+</div>
