@@ -14,7 +14,7 @@ import { Page020VehicleStaticData } from '../page020-vehicle/page020-vehicle.sta
 @Component({
   selector: 'app-page020-vehicle-viewer',
   templateUrl: './page020-vehicle-viewer.component.html',
-  styleUrls: ['./page020-vehicle-viewer.component.css']
+  styleUrls: ['./page020-vehicle-viewer.component.scss']
 })
 export class Page020VehicleViewerComponent extends AbstractDataViewer<VehicleData> implements OnInit {
 

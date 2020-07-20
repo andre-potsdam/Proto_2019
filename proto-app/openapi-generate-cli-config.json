@@ -1,0 +1,8 @@
+{
+    "__comment__": "Full list of available options: npx @openapitools/openapi-generator-cli config-help -g typescript-angular",
+
+    "stringEnums": "true",
+    "enumNameSuffix": "Enum",
+    "withInterfaces": "true"
+
+}

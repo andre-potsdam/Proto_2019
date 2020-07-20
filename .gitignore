@@ -27,3 +27,5 @@ tds-rest-api/tds-rest-api-client-angular/projects/tds-rest-api/src/lib/.swagger-
 *.editorconfig
 *.code-workspace
 .vscode
+proto-app/src/app/api
+*debug.log

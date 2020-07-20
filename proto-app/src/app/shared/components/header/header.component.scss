@@ -1,10 +1,13 @@
 
+@import "src/variables";
+
+
 #header-panel {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    border-bottom: 3px #C3009E solid;
+    border-bottom: 3px $color-pink solid;
 }
 
 #verti-logo {

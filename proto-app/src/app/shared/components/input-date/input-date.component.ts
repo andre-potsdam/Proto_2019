@@ -5,7 +5,7 @@ import { InputConfig } from '../../model/input-config';
 @Component({
   selector: 'app-input-date',
   templateUrl: './input-date.component.html',
-  styleUrls: ['./input-date.component.css'],
+  styleUrls: ['./input-date.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -15,7 +15,7 @@ import { Page030VehicleUsageStaticData } from '../page030-vehicle-usage/page030-
 @Component({
   selector: 'app-page030-vehicle-usage-viewer',
   templateUrl: './page030-vehicle-usage-viewer.component.html',
-  styleUrls: ['./page030-vehicle-usage-viewer.component.css']
+  styleUrls: ['./page030-vehicle-usage-viewer.component.scss']
 })
 export class Page030VehicleUsageViewerComponent extends AbstractDataViewer<VehicleUsageData> implements OnInit {
 

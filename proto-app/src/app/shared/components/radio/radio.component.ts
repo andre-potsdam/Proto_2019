@@ -5,7 +5,7 @@ import { RadioConfig } from '../../model/radio-config';
 @Component({
   selector: 'app-radio',
   templateUrl: './radio.component.html',
-  styleUrls: ['./radio.component.css'],
+  styleUrls: ['./radio.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

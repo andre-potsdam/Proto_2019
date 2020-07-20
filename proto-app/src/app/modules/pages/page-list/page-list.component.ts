@@ -16,7 +16,7 @@ import { PageListPropertiesEs } from './page-list.properties.es';
 @Component({
   selector: 'app-page-list',
   templateUrl: './page-list.component.html',
-  styleUrls: ['./page-list.component.css'],
+  styleUrls: ['./page-list.component.scss'],
   animations: [
     trigger('myInsertRemoveTrigger', [
       transition(':enter', [

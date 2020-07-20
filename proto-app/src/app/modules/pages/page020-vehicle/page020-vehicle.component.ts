@@ -23,7 +23,7 @@ import { Page020VehicleStaticData } from './page020-vehicle.staticData';
 @Component({
   selector: 'app-page020-vehicle',
   templateUrl: './page020-vehicle.component.html',
-  styleUrls: ['./page020-vehicle.component.css']
+  styleUrls: ['./page020-vehicle.component.scss']
 })
 export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> implements OnInit {
 

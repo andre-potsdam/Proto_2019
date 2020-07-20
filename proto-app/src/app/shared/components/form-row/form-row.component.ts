@@ -5,7 +5,7 @@ import { FormControlConfig } from '../../model/form-control-config';
 @Component({
   selector: 'app-form-row',
   templateUrl: './form-row.component.html',
-  styleUrls: ['./form-row.component.css'],
+  styleUrls: ['./form-row.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

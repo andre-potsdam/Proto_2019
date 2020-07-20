@@ -22,7 +22,7 @@ import { Page010SituationPropertiesEs } from './page010-situation.properties.es'
 @Component({
   selector: 'app-page010-situation',
   templateUrl: './page010-situation.component.html',
-  styleUrls: ['./page010-situation.component.css'],
+  styleUrls: ['./page010-situation.component.scss'],
 })
 export class Page010SituationComponent extends AbstractDataEditor<SituationData> {
 

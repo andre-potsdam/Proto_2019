@@ -4,7 +4,7 @@ import { FormGroupConfig } from '../../model/form-group-config';
 @Component({
   selector: 'app-form-group',
   templateUrl: './form-group.component.html',
-  styleUrls: ['./form-group.component.css']
+  styleUrls: ['./form-group.component.scss']
 })
 export class FormGroupComponent implements OnInit {
 

@@ -3,10 +3,11 @@ import { VehicleData } from '../api/model/vehicle-data';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
-  })export class VehicleDataService extends AbstractDataService<VehicleData> {
+  providedIn: 'root'
+})
+export class VehicleDataService extends AbstractDataService<VehicleData> {
 
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 }

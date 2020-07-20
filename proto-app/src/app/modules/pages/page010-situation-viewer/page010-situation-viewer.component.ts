@@ -14,7 +14,7 @@ import { Page010SituationPropertiesEs } from '../page010-situation/page010-situa
 @Component({
   selector: 'app-page010-situation-viewer',
   templateUrl: './page010-situation-viewer.component.html',
-  styleUrls: ['./page010-situation-viewer.component.css']
+  styleUrls: ['./page010-situation-viewer.component.scss']
 })
 export class Page010SituationViewerComponent extends AbstractDataViewer<SituationData> implements OnInit {
 

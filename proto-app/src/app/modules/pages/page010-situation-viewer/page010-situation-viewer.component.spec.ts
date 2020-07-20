@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Page010SituationViewerComponent } from './page010-situation-viewer.component';
+import { DataItem } from 'src/app/shared/model/data-item';
 
 describe('Page010SituationViewerComponent', () => {
   let component: Page010SituationViewerComponent;
@@ -16,10 +17,12 @@ describe('Page010SituationViewerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(Page010SituationViewerComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    component.situationItem = new DataItem('MySituationKey', 'MySituationValue');
+    component.insuranceBeginItem = new DataItem('MyInsuranceBeginKey', 'MyInsuranceBeginValue');
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });

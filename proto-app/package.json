@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "api": "npx @openapitools/openapi-generator-cli generate -c openapi-generate-cli-config.json  -i ../API/api_car.yaml -g typescript-angular -o src/app/api",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

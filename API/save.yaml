@@ -1,0 +1,608 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: ea
+servers:
+  - url: 'http://x-m1system1/ea'
+
+paths:
+
+  # ------------------------------------------------------------------
+  # Paths
+  # ------------------------------------------------------------------
+
+  # Paths are ordered according to straight forward application usage.
+
+  /clientPageValidation:
+    post:
+      description: Server side validation of client data (page 010, Versicherungsnehmer).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                  $ref: '#/components/schemas/ClientPageValidationRequest'
+      responses:
+        '200':
+          description: Validation result is available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientPageValidationResponse'
+
+
+  /vehicleSearch:
+    get:
+      description: Vehicle search with HSN/TSN.
+      parameters: 
+        - in: query
+          name: vehicleType
+          required: true
+          schema:
+            type: string
+            enum: [CAR,BIKE]
+        - in: query
+          name: hsn
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: tsn
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: manufYear
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Search result is available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleSearchResponse'
+        '404':
+          description: Vehicle not found.
+
+
+  /vehicleCoverageCheck:
+    post:
+      description: Check, whether full comprehensive coverage is allowed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleCoverageCheckRequest'
+      responses:
+        '200':
+          description: Result of comprehensive check is available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleCoverageCheckResponse'
+
+
+  /vehiclePageValidation:
+    post:
+      description: Server side validation of vehicle data (page 020, Fahrzeug).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehiclePageValidationRequest'
+      responses:
+        '200':
+          description: Validation result is available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehiclePageValidationResponse'
+
+
+  /agentPageValidation:
+    post:
+      description: Server side validation of agent data (page 030, Vertriebspartner).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentPageValidationRequest'
+      responses:
+        '200':
+          description: Validation result is available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPageValidationResponse'
+
+
+  /eva:
+    post:
+      description: 
+        Final submit of all data, request new EVB number.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaResponse'
+
+
+  /log:
+    post:
+      description:
+        Write any information from client into server logfile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Information was logged.
+
+components:
+
+  headers:
+    DLVA.requestGUID:
+      description:
+        Unique ID for correlated traces.
+        If any HTTP request does NOT contain this header parameter,
+        the backend generates a new ID and sends the newly generated ID back within the response header.
+        The client has to repeat this ID with every request.
+        Must be provided with every API request, except the first one.
+      required: true
+      example: 92d981db-e1a0-4eb4-8595-9135711ad40e
+      schema:
+        type: string
+        
+    x-partner-id:
+      description:
+        Unique ID for partner.
+        Partner or cooperation must be provided with every API request.
+      required: false
+      schema:
+        type: string
+
+    x-cooperation:
+      description:
+        Unique ID for cooperation.
+        Partner or cooperation must be provided with every API request.
+      required: false
+      schema:
+        type: string
+
+    x-broker-id:
+      description:
+        Unique ID for broker.
+      required: false
+      schema:
+        type: string
+
+    x-second-broker-id:
+      description:
+        Unique ID for broker.
+      required: false
+      schema:
+        type: string
+
+
+  schemas:
+
+  # ------------------------------------------------------------------
+  # data types for 
+  #   - page content
+  #   - field IDs
+  # ------------------------------------------------------------------
+  
+    # ----- page 010 -----
+    
+    ClientData:
+      properties:
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        firstName:
+          type: string
+        lastName:
+          type: string
+        street:
+          type: string
+        streetNumber:
+          type: string
+        zipCode:
+          type: string
+        city:
+          type: string
+        mail:
+          type: string
+        mobilePrefix:
+          type: string
+        mobileNumber:
+          type: string
+          
+    ClientDataFieldId:
+      description: List of all fields in ClientData.
+      type: string
+      enum: 
+        - gender
+        - firstName
+        - lastName
+        - street
+        - streetNumber
+        - zipCode
+        - city
+        - mail
+        - mobilePrefix
+        - mobilePhone
+          
+
+    # ----- page 020 -----
+
+    VehicleData:
+      properties:
+        vehicleType:
+          type: string
+          enum:
+            - CAR
+            - VAN
+            - CAMPER
+            - BIKE
+        hsn:
+          type: string
+        tsn:
+          type: string
+        manufacturingYear:
+          type: integer
+        manufacturer:
+          type: string
+        model:
+          type: string
+        purchaseValue:
+          type: string
+
+    VehicleDataFieldId:
+      description: List of all fields in VehicleData.
+      type: string
+      enum: 
+        - vehicleType
+        - hsn
+        - tsn
+        - manufacturingYear
+        - manufacturer
+        - model
+        - purchaseValue
+          
+    CoverageData:
+      properties:
+        season:
+          type: boolean
+        seasonStart:
+          type: string
+        seasonEnd:
+          type: string
+        coverage:
+          type: string
+          enum: [HAF,TEI,VOL]
+
+    CoverageDataFieldId:
+      description: List of all fields in CoverageData.
+      type: string
+      enum: 
+        - season
+        - seasonStart
+        - seasonEnd
+        - coverage
+        
+
+    # ----- page 030 -----
+
+    AgentData:
+      properties:
+        mail:
+          type: string
+        mobilePrefix:
+          type: string
+        mobileNumber:
+          type: string
+
+    AgentDataFieldId:
+      description: List of all fields in AgentData.
+      type: string
+      enum: 
+        - mail
+        - mobilePrefix
+        - mobileNumber
+
+    InfoData:
+      description: Provides information, whether sms/mail shall be sent to client/agent.
+      properties:
+        mailToClient:
+          type: boolean
+        smsToClient:
+          type: boolean
+        mailToAgent:
+          type: boolean
+        smsToAgent:
+          type: boolean
+
+    InfoDataFieldId:
+      description: List of all fields in InfoData.
+      type: string
+      enum: 
+        - mailToClient
+        - smsToClient
+        - mailToAgent
+        - smsToAgent
+
+
+    # ------------------------------------------------------------------
+    # data types for
+    #   - requests/responses container
+    #   - validation results
+    # ------------------------------------------------------------------
+
+    # ----- page 010 -----
+    
+    ClientPageValidationRequest:
+      properties:
+        clientData:
+          $ref: '#/components/schemas/ClientData'
+          
+    ClientPageValidationResponse:
+      properties:
+        clientValidationResult:
+          $ref: '#/components/schemas/ClientValidationResult'
+
+    ClientValidationResult:
+      properties:
+        fieldErrors:
+          type: array
+          items:
+            type: object
+            required: [fieldId,msg]
+            properties:
+              fieldId:
+                $ref: '#/components/schemas/ClientDataFieldId'
+              msgId:
+                description: Short ID for the validation error, e.g. UWE rule name.
+                type: string
+              msg:
+                description: Full description of the validation problem.
+                type: string
+        globalErrors:
+          $ref: '#/components/schemas/ValidationErrors'
+      example:
+          fieldErrors:
+            - fieldId: firstName
+              msgId: C000014
+              msg: Name must have more than 1 character.
+            - fieldId: lastName
+              msgId: C000012
+              msg: Digits are forbidden in name.
+        
+
+    # ----- page 020 -----
+    
+    VehicleSearchResponse:
+      properties:
+        vehicleSearchResult:
+          $ref: '#/components/schemas/VehicleSearchResult'
+
+    VehicleSearchResult:
+      description: |
+        Contains all vehicle data after vehicle search in backend. |
+        Further this is required as input for subsequent coverage check.
+      properties:
+        manufacturer:
+          type: string
+        model:
+          type: string
+        group:
+          type: string
+        riskCategory:
+          type: string
+
+
+    VehicleCoverageCheckRequest:
+      properties:
+        clientData:
+          $ref: '#/components/schemas/ClientData'
+        vehicleData:
+          $ref: '#/components/schemas/VehicleData'
+        vehicleSearchResult:
+          $ref: '#/components/schemas/VehicleSearchResult'
+          
+    VehicleCoverageCheckResponse:
+      properties:
+        allowedCoverage:
+          description: Allowed coverage for this vehicle.
+          type: string
+          enum: [HAF,TEI,VOL]
+
+
+    VehiclePageValidationRequest:
+      properties:
+        vehicleData:
+          $ref: '#/components/schemas/VehicleData'
+        vehicleSearchResult:
+          $ref: '#/components/schemas/VehicleSearchResult'
+        coverageData:
+          $ref: '#/components/schemas/CoverageData'
+          
+    VehiclePageValidationResponse:
+      properties:
+        vehicleValidationResult:
+          $ref: '#/components/schemas/VehicleValidationResult'
+        coverageValidationResult:
+          $ref: '#/components/schemas/CoverageValidationResult'
+
+    VehicleValidationResult:
+      properties:
+        fieldErrors:
+          type: array
+          items:
+            type: object
+            required: [fieldId,msg]
+            properties:
+              fieldId:
+                $ref: '#/components/schemas/VehicleDataFieldId'
+              msgId:
+                description: Short ID for the validation error, e.g. UWE rule name.
+                type: string
+              msg:
+                description: Full description of the validation problem.
+                type: string
+        globalErrors:
+          $ref: '#/components/schemas/ValidationErrors'
+
+    CoverageValidationResult:
+      properties:
+        fieldErrors:
+          type: array
+          items:
+            type: object
+            required: [fieldId,msg]
+            properties:
+              fieldId:
+                $ref: '#/components/schemas/CoverageDataFieldId'
+              msgId:
+                description: Short ID for the validation error, e.g. UWE rule name.
+                type: string
+              msg:
+                description: Full description of the validation problem.
+                type: string
+        globalErrors:
+          $ref: '#/components/schemas/ValidationErrors'
+
+
+    # ----- page 030 -----
+
+    AgentPageValidationRequest:
+      properties:
+        clientData:
+          $ref: '#/components/schemas/ClientData'
+        agentData:
+          $ref: '#/components/schemas/AgentData'
+        infoData:
+          $ref: '#/components/schemas/InfoData'
+
+    AgentPageValidationResponse:
+      properties:
+        agentValidationResult:
+          $ref: '#/components/schemas/AgentValidationResult'
+        infoValidationResult:
+          $ref: '#/components/schemas/InfoValidationResult'
+
+    AgentValidationResult:
+      properties:
+        fieldErrors:
+          type: array
+          items:
+            type: object
+            required: [fieldId,msg]
+            properties:
+              fieldId:
+                $ref: '#/components/schemas/AgentDataFieldId'
+              msgId:
+                description: Short ID for the validation error, e.g. UWE rule name.
+                type: string
+              msg:
+                description: Full description of the validation problem.
+                type: string
+        globalErrors:
+          $ref: '#/components/schemas/ValidationErrors'
+
+    InfoValidationResult:
+      properties:
+        fieldErrors:
+          type: array
+          items:
+            type: object
+            required: [fieldId,msg]
+            properties:
+              fieldId:
+                $ref: '#/components/schemas/InfoDataFieldId'
+              msgId:
+                description: Short ID for the validation error, e.g. UWE rule name.
+                type: string
+              msg:
+                description: Full description of the validation problem.
+                type: string
+        globalErrors:
+          $ref: '#/components/schemas/ValidationErrors'
+
+
+    EvaRequest:
+      properties:
+        clientData:
+          $ref: '#/components/schemas/ClientData'
+        vehicleData:
+          $ref: '#/components/schemas/VehicleData'
+        vehicleSearchResult:
+          $ref: '#/components/schemas/VehicleSearchResult'
+        coverageData:
+          $ref: '#/components/schemas/CoverageData'
+        agentData:
+          $ref: '#/components/schemas/AgentData'
+        infoData:
+          $ref: '#/components/schemas/InfoData'
+          
+    EvaResponse:
+      properties:
+        tcrNumber:
+          type: string
+        vbNumber:
+          type: string
+
+
+    LogLevel:
+      description: List of log levels.
+      type: string
+      enum: 
+        - INFO
+        - ERROR
+
+    LogRequest:
+      required: [level,shortMsg]
+      properties:
+        level:
+          $ref: '#/components/schemas/LogLevel'
+        component:
+          description: Affected component at client side.
+          type: string
+        shortMsg:
+          type: string
+        longMsg:
+          type: string
+          
+
+    # ----- common -----
+
+    ValidationErrors:
+      description: List of validation errors, which are NOT related to a single form field.
+      type: array
+      items:
+        type: object
+        properties:
+          msgId:
+            type: string
+          msg:
+            type: string
+          
+          

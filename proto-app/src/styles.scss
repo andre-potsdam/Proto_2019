@@ -1,10 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
-/*
-    Verti color values:
-        pink: #C3009E
-        orange: #FFA100
-*/
+@import "src/variables";
 
 
 /* html {
@@ -67,7 +62,7 @@ form {
 
 .submit-button {
     height: 30px;
-    background-color: #FFA100;
+    background-color: $color-orange;
     color: white;
     border-style: none;
 }

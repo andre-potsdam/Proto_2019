@@ -44,6 +44,6 @@ describe('Page010SituationComponent', () => {
   });
 
   it('should bind situation', () => {
-    const htmlElem: HTMLElement = fixture.nativeElement().querySelector('#situationChoice_0');
+    const htmlElem: HTMLElement = fixture.nativeElement.querySelector('#situationChoice_0');
   });
 });

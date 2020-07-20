@@ -1,4 +1,7 @@
 
+@import "src/variables";
+
+
 .page-list-item {
     margin-top: 40px;
 }
@@ -20,7 +23,7 @@
 }
 
 .page-list-item-header.active {
-    background-color: #FFA100;
+    background-color: $color-orange;
 }
 .page-list-item-header.active span {
     color: white;
@@ -46,7 +49,7 @@
 
 .page-modify-button {
     height: 30px;
-    background-color: #FFA100;
+    background-color: $color-orange;
     color: white;
     border-style: none;
 }

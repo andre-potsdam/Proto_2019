@@ -20,7 +20,7 @@ import { Page030VehicleUsageStaticData } from './page030-vehicle-usage.staticDat
 @Component({
   selector: 'app-page030-vehicle-usage',
   templateUrl: './page030-vehicle-usage.component.html',
-  styleUrls: ['./page030-vehicle-usage.component.css']
+  styleUrls: ['./page030-vehicle-usage.component.scss']
 })
 export class Page030VehicleUsageComponent extends AbstractDataEditor<VehicleUsageData> implements OnInit {
 
