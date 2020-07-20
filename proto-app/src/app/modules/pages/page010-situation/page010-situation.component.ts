@@ -1,15 +1,15 @@
 import { Component, ModuleWithComponentFactories } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Situation } from 'src/app/shared/api/model/situation.enum';
+import { SituationType } from 'src/app/api/model/situationType';
 import { AbstractDataEditor } from 'src/app/shared/classes/abstract-data-editor';
-import { FormGroupConfig } from 'src/app/shared/model/form-group-config';
-import { InputConfig } from 'src/app/shared/model/input-config';
+import { FormGroupConfig } from 'src/app/common/model/form-group-config';
+import { InputConfig } from 'src/app/common/model/input-config';
 import { Language } from 'src/app/shared/model/language.enum';
 import { ConfigurationService } from 'src/app/shared/services/configuration.service';
 import { SituationDataService } from 'src/app/shared/services/situation-data.service';
-import { ConfigGroup } from 'src/app/shared/model/config-group';
-import { SituationData } from './../../../shared/api/model/situation-data';
-import { RadioConfig } from './../../../shared/model/radio-config';
+import { ConfigGroup } from 'src/app/shared/classes/config-group';
+import { SituationData } from 'src/app/shared/model/situation-data';
+import { RadioConfig } from 'src/app/common/model/radio-config';
 import { Page010SituationProperties } from './page010-situation.properties';
 import { Page010SituationPropertiesDe } from './page010-situation.properties.de';
 import { Page010SituationPropertiesEn } from './page010-situation.properties.en';
@@ -91,7 +91,7 @@ export class Page010SituationComponent extends AbstractDataEditor<SituationData>
   createDefaultData(): SituationData {
 
     return {
-      situation: Situation.EXISTING_CAR,
+      situation: SituationType.EXISTING_CAR,
       insuranceBegin: moment().add(1, 'd'),   // tomorrow
     };
   }
@@ -170,7 +170,7 @@ export class Page010SituationComponent extends AbstractDataEditor<SituationData>
 
 
   isVisibleInsuranceBeginChoice(): boolean {
-    return this.situationChoiceControl && this.situationChoiceControl.value === Situation.EXISTING_CAR;
+    return this.situationChoiceControl && this.situationChoiceControl.value === SituationType.EXISTING_CAR;
   }
 
   isVisibleInsuranceBeginDate(): boolean {

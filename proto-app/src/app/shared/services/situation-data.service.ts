@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SituationData } from '../api/model/situation-data';
+import { SituationData } from '../model/situation-data';
 import { AbstractDataService } from './abstract-data.service';
 
 @Injectable({

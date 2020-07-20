@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormRowComponent } from './form-row.component';
-import { FormControlConfig } from '../../model/form-control-config';
+import { FormControlConfig } from '../model/form-control-config';
 
 describe('FormRowComponent', () => {
   let component: FormRowComponent;

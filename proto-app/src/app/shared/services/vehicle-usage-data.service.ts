@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VehicleUsageData } from '../api/model/vehicle-usage-data';
+import { VehicleUsageData } from '../model/vehicle-usage-data';
 import { AbstractDataService } from './abstract-data.service';
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SituationData } from 'src/app/shared/api/model/situation-data';
+import { SituationData } from 'src/app/shared/model/situation-data';
 import { AbstractDataViewer } from 'src/app/shared/classes/abstract-data-viewer';
 import { DataItem } from 'src/app/shared/model/data-item';
 import { Language } from 'src/app/shared/model/language.enum';

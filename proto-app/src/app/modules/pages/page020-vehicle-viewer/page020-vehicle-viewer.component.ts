@@ -1,6 +1,6 @@
 import { Page020VehiclePropertiesEs } from './../page020-vehicle/page020-vehicle.properties.es';
 import { Component, OnInit } from '@angular/core';
-import { VehicleData } from 'src/app/shared/api/model/vehicle-data';
+import { VehicleData } from 'src/app/shared/model/vehicle-data';
 import { AbstractDataViewer } from 'src/app/shared/classes/abstract-data-viewer';
 import { DataItem } from 'src/app/shared/model/data-item';
 import { Language } from 'src/app/shared/model/language.enum';

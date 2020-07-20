@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputDateComponent } from './input-date.component';
-import { InputConfig } from '../../model/input-config';
+import { InputConfig } from '../model/input-config';
 
 describe('InputDateComponent', () => {
   let component: InputDateComponent;

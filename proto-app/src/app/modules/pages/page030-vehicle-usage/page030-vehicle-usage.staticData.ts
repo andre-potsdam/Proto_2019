@@ -1,10 +1,8 @@
-import { HomeOwnership } from './../../../shared/api/model/home-ownership.enum';
-import { VehicleUsageKind } from 'src/app/shared/api/model/vehicle-usage-kind.enum';
+import { HomeOwnership } from 'src/app/api/model/homeOwnership';
+import { ParkingPlace } from 'src/app/api/model/ParkingPlace';
+import { VehicleUsageKind } from 'src/app/api/model/VehicleUsageKind';
 
-import { Situation } from 'src/app/shared/api/model/situation.enum';
 
-import { InsuranceBegin } from 'src/app/shared/model/insurance-begin.enum';
-import { ParkingPlace } from 'src/app/shared/api/model/parking-place.enum';
 
 export class Page030VehicleUsageStaticData {
 
@@ -47,7 +45,7 @@ export class Page030VehicleUsageStaticData {
   // parking place
   static parkingPlaceItems = [
     { labelKey: 'parkingPlace_garage_label', value: ParkingPlace.GARAGE },
-    { labelKey: 'parkingPlace_parkhouse_label', value: ParkingPlace.PARK_HOUSE },
+    { labelKey: 'parkingPlace_parkhouse_label', value: ParkingPlace.PARKHOUSE },
     { labelKey: 'parkingPlace_street_label', value: ParkingPlace.STREET },
     { labelKey: 'parkingPlace_carport_label', value: ParkingPlace.CARPORT },
   ];

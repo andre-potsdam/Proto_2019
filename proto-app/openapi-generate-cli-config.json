@@ -3,6 +3,8 @@
 
     "stringEnums": "true",
     "enumNameSuffix": "Enum",
+    "enumPropertyNaming": "original",
+    "modelFileSuffix": "",
     "withInterfaces": "true"
 
 }

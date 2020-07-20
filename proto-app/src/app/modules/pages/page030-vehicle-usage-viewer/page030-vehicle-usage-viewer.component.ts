@@ -1,6 +1,6 @@
 import { Page030VehicleUsagePropertiesEs } from './../page030-vehicle-usage/page030-vehicle-usage.properties.es';
 import { Component, OnInit } from '@angular/core';
-import { VehicleUsageData } from 'src/app/shared/api/model/vehicle-usage-data';
+import { VehicleUsageData } from 'src/app/shared/model/vehicle-usage-data';
 import { AbstractDataViewer } from 'src/app/shared/classes/abstract-data-viewer';
 import { DataItem } from 'src/app/shared/model/data-item';
 import { Language } from 'src/app/shared/model/language.enum';

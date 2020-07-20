@@ -100,13 +100,15 @@ components:
   
     # ----- situation -----
     
+    SituationType:
+      enum:
+        - EXISTING_CAR
+        - NEW_CAR
+    
     Situation:
       properties:
-        situation:
-          type: string
-          enum:
-            - INSURER_CHANGE
-            - VEHICLE_CHANGE
+        situationType:
+          $ref: '#/components/schemas/SituationType'   
         insuranceBegin:
           type: string
           format: date
@@ -130,13 +132,29 @@ components:
           
     # ----- vehicle usage -----
     
+    VehicleUsageKind:
+      enum:
+        - PRIVATE
+        - BUSINESS
+        
+    ParkingPlace:
+      enum:
+        - GARAGE
+        - PARKHOUSE
+        - STREET
+        - CARPORT
+    
+    HomeOwnership:
+      enum:
+        - NO_INFORMATION
+        - NO_OWNERSHIP
+        - OWN_FLAT
+        - OWN_HOUSE
+    
     VehicleUsage:
       properties:
         usageKind:
-          type: string
-          enum:
-            - PRIVATE
-            - BUSINESS
+          $ref: '#/components/schemas/VehicleUsageKind'   
         milage:
           description: yearly milage in 1000 kilometres
           type: integer
@@ -147,19 +165,9 @@ components:
         seasonPlateEndMonth:
           type: integer
         homeOwnership:
-          type: string
-          enum:
-            - UNDEFINED
-            - NO_OWNERSHIP
-            - OWN_FLAT
-            - OWN_HOUSE
+          $ref: '#/components/schemas/HomeOwnership' 
         parkingPlace:
-          type: string
-          enum:
-            - GARAGE
-            - PARKHOUSE
-            - STREET
-            - CARPORT
+          $ref: '#/components/schemas/ParkingPlace'   
         
 
     # ----- person, company -----
@@ -183,9 +191,13 @@ components:
           type: string
         mobileNumber:
           type: string
+          
+    Gender:
+      enum:
+        - MALE
+        - FEMALE
 
     Occupation:
-      type: string
       enum:
         - ANGESTELLTER
         - BEAMTER
@@ -199,7 +211,6 @@ components:
         - NONE
 
     MaritalStatus:
-      type: string
       enum:
         - LEDIG
         - VERHEIRATED
@@ -210,10 +221,7 @@ components:
     Person:
       properties:
         gender:
-          type: string
-          enum:
-            - MALE
-            - FEMALE
+          $ref: '#/components/schemas/Gender'   
         firstName:
           type: string
         lastName:
@@ -231,7 +239,6 @@ components:
           $ref: '#/components/schemas/MaritalStatus'   
 
     Business:
-      type: string
       enum:
         - HANDEL
         - GEWERBE
@@ -344,8 +351,6 @@ components:
     # ------------------------------------------------------------------
 
     LogLevel:
-      description: List of log levels.
-      type: string
       enum: 
         - INFO
         - ERROR

@@ -1,12 +1,12 @@
-import { Situation } from 'src/app/shared/api/model/situation.enum';
+import { SituationType } from 'src/app/api/model/situationType';
 import { InsuranceBegin } from 'src/app/shared/model/insurance-begin.enum';
 
 export class Page010SituationStaticData {
 
   // situation
   static situationItems = [
-    { labelKey: 'situationChoice_existingCar_label', value: Situation.EXISTING_CAR },
-    { labelKey: 'situationChoice_newCar_label', value: Situation.NEW_CAR },
+    { labelKey: 'situationChoice_existingCar_label', value: SituationType.EXISTING_CAR },
+    { labelKey: 'situationChoice_newCar_label', value: SituationType.NEW_CAR },
   ];
 
   // insurance begin choice

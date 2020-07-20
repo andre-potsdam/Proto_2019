@@ -1,6 +1,6 @@
-import { VehicleUsageKind } from './vehicle-usage-kind.enum';
-import { HomeOwnership } from './home-ownership.enum';
-import { ParkingPlace } from './parking-place.enum';
+import { VehicleUsageKind } from 'src/app/api/model/VehicleUsageKind';
+import { HomeOwnership } from 'src/app/api/model/homeOwnership';
+import { ParkingPlace } from 'src/app/api/model/ParkingPlace';
 
 export class VehicleUsageData {
 
