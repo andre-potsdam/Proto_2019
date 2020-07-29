@@ -30,11 +30,13 @@ export class Page020VehiclePropertiesEs implements Page020VehicleProperties {
 
     // HSN
     hsn_rowLabel = 'HSN';
-    hsn_infoText = '<b> HSN </ b> <br> número de fabricante de 4 dígitos, s. Aprobación Kfs ';
+    hsn_infoText = '<b> HSN </ b> <br> número de fabricante de 4 dígitos, s. Aprobación Kfz ';
+    hsn_formatError = 'Por favor ingrese un número de 4 dígitos';
 
     // TSN
     tsn_rowLabel = 'TSN';
     tsn_infoText = '<b> TSN </ b> <br> Código de 3 dígitos para el vehículo, s. el registro del vehículo';
+    tsn_formatError = 'Por favor ingrese 3 letras o números';
 
     // HSN / TSN
     hsntsn_rowLabel = 'HSN / TSN';

@@ -1,15 +1,9 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { trigger, transition, style, animate } from '@angular/animations';
-import { PageConfig } from 'src/app/shared/model/page-config';
-import { PageState } from 'src/app/shared/model/page-state.enum';
-import { DataState } from 'src/app/shared/model/data-state.enum';
-import { ConfigurationService } from 'src/app/shared/services/configuration.service';
+import { ConfigurationService, DataState, Language, PageConfig, PageState } from 'src/app/shared';
 import { PageListProperties } from './page-list.properties';
-import { Language } from 'src/app/shared/model/language.enum';
-import { Page010SituationPropertiesEn } from '../page010-situation/page010-situation.properties.en';
-import { Page010SituationPropertiesDe } from '../page010-situation/page010-situation.properties.de';
-import { PageListPropertiesEn } from './page-list.properties.en';
 import { PageListPropertiesDe } from './page-list.properties.de';
+import { PageListPropertiesEn } from './page-list.properties.en';
 import { PageListPropertiesEs } from './page-list.properties.es';
 
 

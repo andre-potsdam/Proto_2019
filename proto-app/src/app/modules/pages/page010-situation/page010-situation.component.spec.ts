@@ -1,14 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { Page010SituationComponent } from './page010-situation.component';
-import { FormGroupComponent } from 'src/app/common/components/form-group/form-group.component';
-import { RadioComponent } from 'src/app/common/components/radio/radio.component';
-import { InputDateComponent } from 'src/app/common/components/input-date/input-date.component';
-import { FormRowComponent } from 'src/app/common/components/form-row/form-row.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormGroupComponent, FormRowComponent, InputDateComponent, RadioComponent } from 'src/app/common';
+import { Page010SituationComponent } from './page010-situation.component';
+
 
 describe('Page010SituationComponent', () => {
   let component: Page010SituationComponent;

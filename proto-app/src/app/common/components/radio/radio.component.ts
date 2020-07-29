@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, forwardRef, Injector, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioConfig } from '../../model/radio-config';
 
 @Component({

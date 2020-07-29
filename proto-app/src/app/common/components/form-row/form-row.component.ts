@@ -34,6 +34,21 @@ export class FormRowComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+  getErrorMsg(): string {
+    if (this.control && this.control.errors && this.control.errors.errorMsg) {
+      return this.control.errors.errorMsg;
+    }
+    return null;
+  }
+
+  hasErrorMsg(): boolean {
+    if (this.getErrorMsg()) {
+      return true;
+    }
+    return false;
+  }
+
   toggleInfo(event: Event) {
     event.stopPropagation();
     if (this.config.infoText) {

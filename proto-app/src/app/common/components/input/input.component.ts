@@ -2,6 +2,7 @@ import { AfterViewInit, Component, forwardRef, Injector, Input, OnInit } from '@
 import { ControlValueAccessor, FormControl, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputConfig } from '../../model/input-config';
 
+
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',

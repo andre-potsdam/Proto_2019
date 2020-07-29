@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SituationData } from 'src/app/shared/model/situation-data';
-import { AbstractDataViewer } from 'src/app/shared/classes/abstract-data-viewer';
-import { DataItem } from 'src/app/shared/model/data-item';
-import { Language } from 'src/app/shared/model/language.enum';
-import { ConfigurationService } from 'src/app/shared/services/configuration.service';
+import { AbstractDataViewer, ConfigurationService, DataItem, Language, SituationData, SituationDataService } from 'src/app/shared';
 import { Page010SituationProperties } from '../page010-situation/page010-situation.properties';
 import { Page010SituationPropertiesDe } from '../page010-situation/page010-situation.properties.de';
 import { Page010SituationPropertiesEn } from '../page010-situation/page010-situation.properties.en';
-import { SituationDataService } from './../../../shared/services/situation-data.service';
-import { Page010SituationStaticData } from './../page010-situation/page010-situation.staticData';
 import { Page010SituationPropertiesEs } from '../page010-situation/page010-situation.properties.es';
+import { Page010SituationStaticData } from './../page010-situation/page010-situation.staticData';
 
 @Component({
   selector: 'app-page010-situation-viewer',

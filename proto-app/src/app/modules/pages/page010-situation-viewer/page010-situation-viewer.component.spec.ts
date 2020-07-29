@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { DataItem } from 'src/app/shared';
 import { Page010SituationViewerComponent } from './page010-situation-viewer.component';
-import { DataItem } from 'src/app/shared/model/data-item';
+
 
 describe('Page010SituationViewerComponent', () => {
   let component: Page010SituationViewerComponent;

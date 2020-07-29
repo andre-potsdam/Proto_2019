@@ -1,7 +1,7 @@
 import { OnInit, Directive } from '@angular/core';
 import { ConfigurationService } from '../services/configuration.service';
 import { DataService } from '../services/data.service';
-import { SelectItem } from '../../common/model/select-item';
+import { SelectItem } from 'src/app/common';
 import * as moment from 'moment';
 
 @Directive()

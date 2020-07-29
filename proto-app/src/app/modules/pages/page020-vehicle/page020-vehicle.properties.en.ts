@@ -29,10 +29,12 @@ export class Page020VehiclePropertiesEn implements Page020VehicleProperties {
     // HSN
     hsn_rowLabel = 'HSN';
     hsn_infoText = '4-digit number of manufacturer, see Kfz Zulassung';
+    hsn_formatError = 'Please enter a 4-digit number';
 
     // TSN
     tsn_rowLabel = 'TSN';
     tsn_infoText = '3-character Code for your car, see Kfz-Zulassung';
+    tsn_formatError = 'Please enter 3 letters or numbers';
 
     // HSN/TSN
     hsntsn_rowLabel = 'HSN / TSN';

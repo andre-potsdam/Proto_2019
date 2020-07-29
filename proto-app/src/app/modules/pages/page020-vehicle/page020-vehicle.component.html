@@ -18,21 +18,36 @@
             <!-- vehicle selection kind (comfort search / hsn,tsn) -->
             <app-radio formControlName="vehicleSelection" [config]="vehicleSelectionConfig"></app-radio>
 
-            <!-- HSN -->
-            <app-input formControlName="hsn" [config]="hsnConfig" *ngIf="isVisibleHsnTsn()"></app-input>
-            <!-- TSN -->
-            <app-input formControlName="tsn" [config]="tsnConfig" *ngIf="isVisibleHsnTsn()" class="appended">
-            </app-input>
+            <div *ngIf="isVisibleHsnTsn()">
 
-            <!-- manufacturer -->
-            <app-select formControlName="manufacturer" [config]="manufacturerConfig" *ngIf="isVisibleComfortSearch()">
-            </app-select>
-            <!-- model -->
-            <app-select formControlName="model" [config]="modelChoiceConfig" *ngIf="isVisibleComfortSearch()"
-                class="appended"></app-select>
-            <!-- fuel -->
-            <app-select formControlName="fuel" [config]="fuelConfig" *ngIf="isVisibleComfortSearch()" class="appended">
-            </app-select>
+                <!-- HSN -->
+                <app-input formControlName="hsn" [config]="hsnConfig"></app-input>
+                <!-- TSN -->
+                <app-input formControlName="tsn" [config]="tsnConfig" class="appended">
+                </app-input>
+
+                <!-- foundVehiclePanel -->
+                <app-panel [config]="foundVehiclePanelConfig"></app-panel>
+
+            </div>
+
+            <div *ngIf="isVisibleComfortSearch()">
+
+                <!-- manufacturer -->
+                <app-select formControlName="manufacturer" [config]="manufacturerConfig">
+                </app-select>
+                <!-- model -->
+                <app-select formControlName="model" [config]="modelChoiceConfig" class="appended"></app-select>
+                <!-- fuel -->
+                <app-select formControlName="fuel" [config]="fuelConfig" class="appended">
+                </app-select>
+
+            </div>
+
+            <div >
+
+            </div>
+
             <!-- TODO -->
 
             <!-- financing -->

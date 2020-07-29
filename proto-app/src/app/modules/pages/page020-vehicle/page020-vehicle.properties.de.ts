@@ -28,18 +28,20 @@ export class Page020VehiclePropertiesDe implements Page020VehicleProperties {
 
     // HSN
     hsn_rowLabel = 'HSN';
-    hsn_infoText = '<b>HSN</b><br>4-stellige Nummer des Herstellers, s. Kfs Zulassung';
+    hsn_infoText = '<b>HSN</b><br>4-stellige Nummer des Herstellers, s. Kfz Zulassung';
+    hsn_formatError = 'Bitte geben Sie eine 4-stellige Zahl ein';
 
     // TSN
     tsn_rowLabel = 'TSN';
     tsn_infoText = '<b>TSN</b><br>3-stelliger Code für das Fahrzeug, s. Kfz-Zulassung';
+    tsn_formatError = 'Bitte geben Sie 3 Buchstaben bzw. Ziffern ein';
 
     // HSN/TSN
     hsntsn_rowLabel = 'HSN / TSN';
 
     // manufacturer
     manufacturer_rowLabel = 'Hersteller';
-    manufacturer_infoText = null;
+    manufacturer_infoText = 'Auswahl des Fahrzeug Herstellers.';
 
     // model
     model_rowLabel = 'Modell';

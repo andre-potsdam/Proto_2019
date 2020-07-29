@@ -1,5 +1,5 @@
 import { SituationType } from 'src/app/api/model/situationType';
-import { InsuranceBegin } from 'src/app/shared/model/insurance-begin.enum';
+import { InsuranceBegin } from 'src/app/shared';
 
 export class Page010SituationStaticData {
 

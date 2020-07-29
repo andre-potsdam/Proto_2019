@@ -1,15 +1,10 @@
-import { Page020VehiclePropertiesEs } from './../page020-vehicle/page020-vehicle.properties.es';
 import { Component, OnInit } from '@angular/core';
-import { VehicleData } from 'src/app/shared/model/vehicle-data';
-import { AbstractDataViewer } from 'src/app/shared/classes/abstract-data-viewer';
-import { DataItem } from 'src/app/shared/model/data-item';
-import { Language } from 'src/app/shared/model/language.enum';
-import { ConfigurationService } from 'src/app/shared/services/configuration.service';
-import { VehicleDataService } from 'src/app/shared/services/vehicle-data.service';
+import { AbstractDataViewer, ConfigurationService, DataItem, Language, VehicleData, VehicleDataService } from 'src/app/shared';
 import { Page020VehicleProperties } from '../page020-vehicle/page020-vehicle.properties';
 import { Page020VehiclePropertiesDe } from '../page020-vehicle/page020-vehicle.properties.de';
 import { Page020VehiclePropertiesEn } from '../page020-vehicle/page020-vehicle.properties.en';
 import { Page020VehicleStaticData } from '../page020-vehicle/page020-vehicle.staticData';
+import { Page020VehiclePropertiesEs } from './../page020-vehicle/page020-vehicle.properties.es';
 
 @Component({
   selector: 'app-page020-vehicle-viewer',

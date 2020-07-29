@@ -1,22 +1,14 @@
-import { Component, ModuleWithComponentFactories } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SituationType } from 'src/app/api/model/situationType';
-import { AbstractDataEditor } from 'src/app/shared/classes/abstract-data-editor';
-import { FormGroupConfig } from 'src/app/common/model/form-group-config';
-import { InputConfig } from 'src/app/common/model/input-config';
-import { Language } from 'src/app/shared/model/language.enum';
-import { ConfigurationService } from 'src/app/shared/services/configuration.service';
-import { SituationDataService } from 'src/app/shared/services/situation-data.service';
-import { ConfigGroup } from 'src/app/shared/classes/config-group';
-import { SituationData } from 'src/app/shared/model/situation-data';
-import { RadioConfig } from 'src/app/common/model/radio-config';
+import * as moment from 'moment';
+import { SituationType } from 'src/app/api';
+import { FormGroupConfig, InputConfig, RadioConfig } from 'src/app/common';
+import { AbstractDataEditor, ConfigGroup, ConfigurationService, InsuranceBegin, Language, SituationData, SituationDataService } from 'src/app/shared';
 import { Page010SituationProperties } from './page010-situation.properties';
 import { Page010SituationPropertiesDe } from './page010-situation.properties.de';
 import { Page010SituationPropertiesEn } from './page010-situation.properties.en';
-import { Page010SituationStaticData } from './page010-situation.staticData';
-import { InsuranceBegin } from 'src/app/shared/model/insurance-begin.enum';
-import * as moment from 'moment';
 import { Page010SituationPropertiesEs } from './page010-situation.properties.es';
+import { Page010SituationStaticData } from './page010-situation.staticData';
 
 
 @Component({

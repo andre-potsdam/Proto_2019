@@ -1,4 +1,4 @@
-import { SituationType } from 'src/app/api/model/situationType';
+import { SituationType } from 'src/app/api';
 import * as moment from 'moment';
 
 export interface SituationData {

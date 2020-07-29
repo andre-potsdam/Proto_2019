@@ -73,7 +73,7 @@ export abstract class AbstractDataEditor<T> implements OnInit {
   protected abstract validate(): void;
 
 
-  // This validator needs to be added to group form control, 
+  // This validator needs to be added to group form control,
   // in order to trigger invocation of validate() for cross field validation.
   protected createValidator(editor: AbstractDataEditor<T>): ValidatorFn {
     return (control: AbstractControl) => {

@@ -1,6 +1,4 @@
-import { HomeOwnership } from 'src/app/api/model/homeOwnership';
-import { ParkingPlace } from 'src/app/api/model/ParkingPlace';
-import { VehicleUsageKind } from 'src/app/api/model/VehicleUsageKind';
+import { HomeOwnership, VehicleUsageKind, ParkingPlace } from 'src/app/api';
 
 
 

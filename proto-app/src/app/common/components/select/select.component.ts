@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, AfterViewInit, Injector, forwardRef } from '@angular/core';
-import { FormControl, ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterViewInit, Component, forwardRef, Injector, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormControl, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SelectConfig } from '../../model/select-config';
 
 @Component({

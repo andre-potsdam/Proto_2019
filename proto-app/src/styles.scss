@@ -104,20 +104,20 @@ app-input-date.ng-valid .form-row {
 
 /* invalid state */
 app-radio.ng-invalid.ng-touched  .form-row , app-radio.ng-invalid.ng-dirty  .form-row {
-    background-color: #ffcdcd;
-    border-right-color: #ffcdcd;
+    background-color: $color-error;
+    border-right-color: $color-error;
 }
 app-select.ng-invalid.ng-touched  .form-row , app-select.ng-invalid.ng-dirty  .form-row {
-    background-color: #ffcdcd;
-    border-right-color: #ffcdcd;
+    background-color: $color-error;
+    border-right-color: $color-error;
 }
 app-input.ng-invalid.ng-touched  .form-row , app-input.ng-invalid.ng-dirty  .form-row {
-    background-color: #ffcdcd;
-    border-right-color: #ffcdcd;
+    background-color: $color-error;
+    border-right-color: $color-error;
 }
 app-input-date.ng-invalid.ng-touched  .form-row , app-input-date.ng-invalid.ng-dirty  .form-row {
-    background-color: #ffcdcd;
-    border-right-color: #ffcdcd;
+    background-color: $color-error;
+    border-right-color: $color-error;
 }
 
 

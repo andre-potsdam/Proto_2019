@@ -1,16 +1,10 @@
-import { Page030VehicleUsagePropertiesEs } from './../page030-vehicle-usage/page030-vehicle-usage.properties.es';
 import { Component, OnInit } from '@angular/core';
-import { VehicleUsageData } from 'src/app/shared/model/vehicle-usage-data';
-import { AbstractDataViewer } from 'src/app/shared/classes/abstract-data-viewer';
-import { DataItem } from 'src/app/shared/model/data-item';
-import { Language } from 'src/app/shared/model/language.enum';
-import { ConfigurationService } from 'src/app/shared/services/configuration.service';
-import { VehicleUsageDataService } from 'src/app/shared/services/vehicle-usage-data.service';
-import { Page020VehicleStaticData } from '../page020-vehicle/page020-vehicle.staticData';
+import { AbstractDataViewer, ConfigurationService, DataItem, Language, VehicleUsageData, VehicleUsageDataService } from 'src/app/shared';
 import { Page030VehicleUsageProperties } from '../page030-vehicle-usage/page030-vehicle-usage.properties';
 import { Page030VehicleUsagePropertiesDe } from '../page030-vehicle-usage/page030-vehicle-usage.properties.de';
 import { Page030VehicleUsagePropertiesEn } from '../page030-vehicle-usage/page030-vehicle-usage.properties.en';
 import { Page030VehicleUsageStaticData } from '../page030-vehicle-usage/page030-vehicle-usage.staticData';
+import { Page030VehicleUsagePropertiesEs } from './../page030-vehicle-usage/page030-vehicle-usage.properties.es';
 
 @Component({
   selector: 'app-page030-vehicle-usage-viewer',

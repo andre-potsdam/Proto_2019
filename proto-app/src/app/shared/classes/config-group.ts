@@ -1,5 +1,7 @@
-import { FormControlConfig } from '../../common/model/form-control-config';
+import { FormControlConfig } from 'src/app/common';
 
+
+/* Ensure, that there is only one info text visible at a time for all controls in this group. */
 export class ConfigGroup {
 
     private readonly formControlConfigs: FormControlConfig[];

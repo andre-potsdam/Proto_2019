@@ -1,4 +1,4 @@
-import { VehicleSelection } from 'src/app/shared/model/vehicle-selection.enum';
+import { VehicleSelection } from 'src/app/shared';
 
 export class Page020VehicleStaticData {
 

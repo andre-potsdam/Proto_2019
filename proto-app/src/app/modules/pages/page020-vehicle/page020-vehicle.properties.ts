@@ -29,10 +29,12 @@ export interface Page020VehicleProperties {
     // HSN
     hsn_rowLabel: string;
     hsn_infoText: string;
+    hsn_formatError: string;
 
     // TSN
     tsn_rowLabel: string;
     tsn_infoText: string;
+    tsn_formatError: string;
 
     // HSN/TSN
     hsntsn_rowLabel: string;
@@ -62,5 +64,7 @@ export interface Page020VehicleProperties {
     // vehicle description
     vehicleDescription_rowLabel: string;
 
+    // submit
     submitButton_label: string;
+
 }
