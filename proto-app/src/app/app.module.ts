@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,6 +15,7 @@ import { Page020VehicleComponent } from './modules/pages/page020-vehicle/page020
 import { Page030VehicleUsageViewerComponent } from './modules/pages/page030-vehicle-usage-viewer/page030-vehicle-usage-viewer.component';
 import { Page030VehicleUsageComponent } from './modules/pages/page030-vehicle-usage/page030-vehicle-usage.component';
 import { HeaderComponent } from './shared';
+import { DemoInterceptor } from './demo/demo.interceptor';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { HeaderComponent } from './shared';
     InputDateComponent,
     Page020VehicleViewerComponent,
     Page030VehicleUsageComponent,
-    Page030VehicleUsageViewerComponent
+    Page030VehicleUsageViewerComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,9 @@ import { HeaderComponent } from './shared';
     ApiModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: DemoInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

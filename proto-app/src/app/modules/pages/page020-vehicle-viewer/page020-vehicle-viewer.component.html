@@ -3,7 +3,10 @@
     <!-- vehicle description -->
     <div class="viewer-item">
         <span class="viewer-item-label">{{vehicleDescriptionItem.label}}</span>
-        <span class="viewer-item-value">{{vehicleDescriptionItem.value}}</span>
+        <div class="viewer-item-value found-vehicle-panel">
+            <img *ngIf="vehicleManufacturerImage" [src]="vehicleManufacturerImage" />
+            <span [innerHTML]="vehicleDescriptionItem.value"></span>
+        </div>
     </div>
 
     <!-- HSN/TSN -->

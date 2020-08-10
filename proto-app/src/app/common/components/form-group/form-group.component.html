@@ -8,4 +8,9 @@
     <!-- form rows, controls, etc. come here -->
     <ng-content></ng-content>
 
+    <!-- (optional) error panel -->
+    <div class="error-panel" *ngIf="hasErrorMsg()">
+        <span [innerHtml]="getErrorMsg()"></span>
+    </div>
+
 </div>

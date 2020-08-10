@@ -1,7 +1,7 @@
 <!-- label, control panel, info button, info, border, validation -->
 <app-form-row [config]="config">
 
-  <input id="{{config.name}}" type="text" class="app-input" [class.with-postfix]="config.hasPostfix()"
+  <input id="{{config.name}}" type="{{config.type}}" maxlength="{{config.maxlength}}" class="app-input" [class.with-postfix]="config.hasPostfix()"
   [(ngModel)]="selectedValue">
 
   <span *ngIf="config.hasPostfix()">{{config.postfix}}</span>

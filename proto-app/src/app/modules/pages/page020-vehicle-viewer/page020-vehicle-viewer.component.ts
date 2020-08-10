@@ -21,6 +21,9 @@ export class Page020VehicleViewerComponent extends AbstractDataViewer<VehicleDat
   vehicleDescriptionItem: DataItem;
   financingItem: DataItem;
 
+  vehicleManufacturerImage: string;
+
+
 
   constructor(configService: ConfigurationService, dataService: VehicleDataService) {
     super(configService, dataService);
@@ -33,10 +36,13 @@ export class Page020VehicleViewerComponent extends AbstractDataViewer<VehicleDat
     this.manufYearItem = new DataItem('manufYear_rowLabel', String(data.manufYear));
     this.purchaseYearItem = new DataItem('purchaseYear_rowLabel', String(data.purchaseYear));
     this.hsnTsnItem = new DataItem('hsntsn_rowLabel', data.hsn + ' / ' + data.tsn);
-    this.vehicleDescriptionItem = new DataItem('vehicleDescription_rowLabel', 'VW Golf III 1.4 TSI, 150PS');
-
+    this.vehicleDescriptionItem = new DataItem('vehicleDescription_rowLabel', data.manufacturer + ' ' + data.model);
     this.financingItem = new DataItem('financing_rowLabel');
     this.financingItem.valueKey = this.getValueKey(Page020VehicleStaticData.financingItems, data.financing);
+
+    if (data.manufacturer) {
+      this.vehicleManufacturerImage = 'assets/manufacturer/' + data.manufacturer.toLowerCase() + '.png';
+    }
   }
 
 

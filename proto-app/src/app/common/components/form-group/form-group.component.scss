@@ -1,0 +1,8 @@
+@import "src/variables";
+
+.error-panel {
+    margin-top: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: $color-error;
+}

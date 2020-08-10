@@ -1,10 +1,12 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime, map, tap } from 'rxjs/operators';
 import { VehicleSearchResponse, VehicleSearchService } from 'src/app/api';
-import { FormGroupConfig, InputConfig, PanelConfig, RadioConfig, SelectConfig, SelectItem } from 'src/app/common';
-import { AbstractDataEditor, VehicleData, ConfigGroup, ConfigurationService, VehicleDataService, VehicleSelection, Language } from 'src/app/shared';
+import { FormControlConfig, FormGroupConfig, InputConfig, RadioConfig, SelectConfig, SelectItem } from 'src/app/common';
+import { AbstractDataEditor, ConfigGroup, ConfigurationService, Language, ValidationError, ValidationService, VehicleData,
+  VehicleDataService, VehicleSelection } from 'src/app/shared';
 import { Page020VehicleProperties } from './page020-vehicle.properties';
 import { Page020VehiclePropertiesDe } from './page020-vehicle.properties.de';
 import { Page020VehiclePropertiesEn } from './page020-vehicle.properties.en';
@@ -30,7 +32,7 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
   vehicleSelectionConfig: RadioConfig;
   hsnConfig: InputConfig;
   tsnConfig: InputConfig;
-  foundVehiclePanelConfig: PanelConfig;
+  foundVehicleConfig: FormControlConfig;
   manufacturerConfig: SelectConfig;
   modelChoiceConfig: SelectConfig;
   fuelConfig: SelectConfig;
@@ -39,6 +41,7 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
 
   // reactive form controls for value and validation
   form: FormGroup;
+  vehicleGroup: FormGroup;
   manufYearControl: FormControl;
   purchaseYearControl: FormControl;
   vehicleSelectionControl: FormControl;
@@ -52,28 +55,37 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
   // observable for vehicle HSN/TSN search
   readonly vehicleSearchSubject = new Subject<{ hsn: string, tsn: string, manufYear: number }>();
 
+  // temporar data of found vehicle
+  foundVehicleManufacturer: string;
+  foundVehicleModel: string;
+  foundVehicleImg: string;
+  foundVehicleText: string;
+
 
   constructor(
     configService: ConfigurationService,
     vehicleDataService: VehicleDataService,
-    protected vehicleSearchService: VehicleSearchService) {
+    protected vehicleSearchService: VehicleSearchService,
+    protected validationService: ValidationService) {
     super(configService, vehicleDataService);
   }
 
 
   ngOnInit() {
     super.ngOnInit();
+    this.updateFormControlVisibility();
 
     // subscribe
     this.manufYearControl.valueChanges.subscribe((value) => { this.handleManufYearValueChange(value); });
+    this.vehicleSelectionControl.valueChanges.subscribe((value) => { this.handleSelectionControlChange(); });
     this.hsnControl.valueChanges.subscribe((value) => { this.handleHsnTsnChange(); });
     this.tsnControl.valueChanges.subscribe((value) => { this.handleHsnTsnChange(); });
-    this.vehicleSelectionControl.valueChanges.subscribe((value) => { this.handleSelectionControlChange(); });
-    // this.form.valueChanges.subscribe(() => { if (this.form.dirty) { this.vehicleDataService.setDataState(DataState.DIRTY); } });
 
     this.subscribeVehicleSearch();
   }
 
+
+  // ----------- config handling ---------
 
   // @override
   protected initConfigs() {
@@ -85,8 +97,10 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
 
     this.vehicleSelectionConfig = new RadioConfig('vehicleSelection', false, Page020VehicleStaticData.vehicleSelectionChoiceItems);
     this.hsnConfig = new InputConfig('hsn', 'text', false);
+    this.hsnConfig.setMaxLength(4);
     this.tsnConfig = new InputConfig('tsn', 'text', false);
-    this.foundVehiclePanelConfig = new PanelConfig('foundVehiclePanel');
+    this.tsnConfig.setMaxLength(3);
+    this.foundVehicleConfig = new FormControlConfig('foundVehicle', false);
 
     this.manufacturerConfig = new SelectConfig('manufacturer', false, Page020VehicleStaticData.manufacturerItems);
     this.modelChoiceConfig = new SelectConfig('model', false, Page020VehicleStaticData.modelItems);
@@ -104,7 +118,14 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
 
 
   // @override
+  protected updateConfigs() { }
+
+
+  // ----------- form control creation and validation ---------
+
+  // @override
   initFormControls() {
+    this.info('enter initFormControls()');
 
     // prepare forms model and field validation
     this.manufYearControl = new FormControl(null, Validators.required);
@@ -131,84 +152,21 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
     this.fuelControl = new FormControl(null, Validators.required);
     this.financingControl = new FormControl(null, Validators.required);
 
+    this.vehicleGroup = new FormGroup({
+      manufYear: this.manufYearControl,
+      purchaseYear: this.purchaseYearControl,
+      vehicleSelection: this.vehicleSelectionControl,
+      hsn: this.hsnControl,
+      tsn: this.tsnControl,
+      manufacturer: this.manufacturerControl,
+      model: this.modelChoiceControl,
+      fuel: this.fuelControl,
+      financing: this.financingControl,
+    }, this.createValidator(this));
+
     this.form = new FormGroup({
-      vehicleGroup: new FormGroup({
-        manufYear: this.manufYearControl,
-        purchaseYear: this.purchaseYearControl,
-        vehicleSelection: this.vehicleSelectionControl,
-        hsn: this.hsnControl,
-        tsn: this.tsnControl,
-        manufacturer: this.manufacturerControl,
-        model: this.modelChoiceControl,
-        fuel: this.fuelControl,
-        financing: this.financingControl,
-      }, this.createValidator(this))
+      vehicleGroup: this.vehicleGroup
     });
-  }
-
-
-  // @override
-  protected updateConfigs() { }
-
-
-  // @override
-  protected createDefaultData(): VehicleData {
-    return {
-      manufYear: null,
-      purchaseYear: null,
-      hsn: null,
-      tsn: null,
-      financing: null,
-    };
-  }
-
-
-  // @override
-  protected setData(data: VehicleData) {
-
-    this.manufYearControl.setValue(data.manufYear);
-    this.purchaseYearControl.setValue(data.purchaseYear);
-    if (data.hsn) {
-      this.vehicleSelectionControl.setValue(VehicleSelection.HSN_TSN);
-    }
-    this.hsnControl.setValue(data.hsn);
-    this.tsnControl.setValue(data.tsn);
-    this.financingControl.setValue(data.financing);
-  }
-
-
-  // @override
-  protected getData(): VehicleData {
-
-    return {
-      manufYear: this.manufYearControl.value,
-      purchaseYear: this.purchaseYearControl.value,
-      hsn: this.hsnControl.value,
-      tsn: this.tsnControl.value,
-      financing: this.financingControl.value,
-    };
-  }
-
-
-  // @override
-  protected updateLanguageStrings() {
-    switch (this.configService.getLanguage()) {
-      case Language.EN: {
-        this.properties = new Page020VehiclePropertiesEn();
-        break;
-      }
-      case Language.ES: {
-        this.properties = new Page020VehiclePropertiesEs();
-        break;
-      }
-      default: {
-        this.properties = new Page020VehiclePropertiesDe();
-      }
-    }
-
-    this.vehicleGroupConfig.updateLanguageStrings(this.properties);
-    this.configGroup.updateLanguageStrings(this.properties);
-    this.updateErrorMessages();
   }
 
 
@@ -222,60 +180,86 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
   }
 
 
-  // Update error messages.
-  protected updateErrorMessages() {
+  // Update error messages frontend.
+  updateErrorMessages() {
     if (!this.form) {
       return;
     }
 
-    // HSN
-    if (this.hsnControl.errors) {
-      const errors = this.hsnControl.errors;
-      delete errors.errorKey;
-      delete errors.errorMsg;
-      if ('minlength' in errors || 'maxlength' in errors || 'pattern' in errors) {
-        errors.errorKey = 'hsn_formatError';
-        errors.errorMsg = this.properties[errors.errorKey];
-      }
-    }
+    this.updateErrorMsgForRequired(this.manufYearControl, this.properties.manufYear_requiredError);
+    this.updateErrorMsgForRequired(this.purchaseYearControl, this.properties.purchaseYear_requiredError);
+    this.updateErrorMsgForRequired(this.vehicleSelectionControl, this.properties.vehicleSelection_requiredError);
 
-    // TSN
-    if (this.tsnControl.errors) {
-      const errors = this.tsnControl.errors;
-      delete errors.errorKey;
-      delete errors.errorMsg;
-      if ('minlength' in errors || 'maxlength' in errors || 'pattern' in errors) {
-        errors.errorKey = 'tsn_formatError';
-        errors.errorMsg = this.properties[errors.errorKey];
-      }
-    }
+    this.updateErrorMsgForRequired(this.hsnControl, this.properties.hsn_requiredError);
+    this.updateErrorMsgForWrongFormat(this.hsnControl, this.properties.hsn_formatError);
 
+    this.updateErrorMsgForRequired(this.tsnControl, this.properties.tsn_requiredError);
+    this.updateErrorMsgForWrongFormat(this.tsnControl, this.properties.tsn_formatError);
+
+    this.updateErrorMsgForRequired(this.manufacturerControl, this.properties.manufacturer_requiredError);
+    this.updateErrorMsgForRequired(this.modelChoiceControl, this.properties.model_requiredError);
+    this.updateErrorMsgForRequired(this.fuelControl, this.properties.fuel_requiredError);
+    this.updateErrorMsgForRequired(this.financingControl, this.properties.financing_requiredError);
   }
 
 
+  updateErrorMessagesBackend(backendErrors: ValidationError[]) {
+    if (!backendErrors) {
+      return;
+    }
+    for (const backendError of backendErrors) {
+      this.getControlForFieldPath(backendError.fieldPath).setErrors({ errorMsg: backendError.msg });
+    }
+  }
+
+
+  getControlForFieldPath(fieldPath: string): AbstractControl {
+    if (!fieldPath) {
+      return this.vehicleGroup;
+    }
+    if (fieldPath.endsWith('hsn')) {
+      return this.hsnControl;
+    }
+    if (fieldPath.endsWith('tsn')) {
+      return this.tsnControl;
+    }
+    return this.vehicleGroup;
+  }
+
+
+  protected createBackendValidator(): AsyncValidatorFn {
+    return () => this.validationService.validateVehicleData(this.getData())
+      .pipe(
+        map(backendErrors => this.mapErrors(backendErrors))
+      );
+  }
+
+  mapErrors(backendErrors: ValidationError[]): ValidationErrors {
+    if (!backendErrors) {
+      return null;
+    }
+    return { uweError: 'irgendein Backend Fehler' };
+  }
+
+
+  // ---------- form control visibility ----------
+
+  // Conditions for display of HSN/TSN panel.
   isVisibleHsnTsn(): boolean {
     return this.vehicleSelectionControl && this.vehicleSelectionControl.value === VehicleSelection.HSN_TSN;
   }
 
 
+  // Conditions for display of comfort search panel.
   isVisibleComfortSearch(): boolean {
     return this.vehicleSelectionControl && this.vehicleSelectionControl.value === VehicleSelection.COMFORT_SEARCH;
   }
 
 
-  handleManufYearValueChange(manufYear: number) {
-    console.log('manuf year changed: ' + manufYear);
+  // Update enable/disable of all form controls, which may be hidden.
+  updateFormControlVisibility() {
+    this.info('enter updateFormControlVisibility()');
 
-    // correct purchase year select items
-    this.purchaseYearConfig.items = this.getYearSelectItems(manufYear);
-    // correct purchase year value
-    if (this.purchaseYearControl.value && this.purchaseYearControl.value < manufYear) {
-      this.purchaseYearControl.setValue(null);
-    }
-  }
-
-
-  handleSelectionControlChange() {
     // enable/disable optional controls, in order to get correct from group validation
     if (this.isVisibleHsnTsn()) {
       this.hsnControl.enable();
@@ -297,38 +281,103 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
   }
 
 
-  handleHsnTsnChange() {
-    this.info('HSN/TSN changed');
+  // ----------- data handling ---------
 
-    // check conditions for vehicle search
-    if (this.manufYearControl.valid && this.hsnControl.valid && this.tsnControl.valid) {
-      // search vehicle by HSN/TSN
-      this.info('searching vehicle for ' + this.hsnControl.value + '/' + this.tsnControl.value);
-      this.vehicleSearchSubject.next({ hsn: this.hsnControl.value, tsn: this.tsnControl.value, manufYear: this.manufYearControl.value });
+  // @override
+  protected createDefaultData(): VehicleData {
+    return {
+      manufYear: null,
+      purchaseYear: null,
+      hsn: null,
+      tsn: null,
+      financing: null,
+      manufacturer: null,
+      model: null,
+    };
+  }
+
+
+  // @override
+  protected setData(data: VehicleData) {
+    this.info('enter setData()');
+
+    this.manufYearControl.setValue(data.manufYear);
+    this.purchaseYearControl.setValue(data.purchaseYear);
+    if (data.hsn) {
+      this.vehicleSelectionControl.setValue(VehicleSelection.HSN_TSN);
+    }
+    this.hsnControl.setValue(data.hsn);
+    this.tsnControl.setValue(data.tsn);
+    this.financingControl.setValue(data.financing);
+
+    this.manufacturerControl.setValue(data.manufacturer);
+    this.modelChoiceControl.setValue(data.model);
+
+    if (data.manufacturer) {
+      this.setFoundVehicle(data.manufacturer, data.model);
+    } else {
+      this.clearFoundVehicle();
     }
   }
 
 
-  subscribeVehicleSearch() {
-    this.vehicleSearchSubject
-      .pipe(
-        // filter(), foir duplicate invocation
-        debounceTime(500),
-        tap((searchKeys) => this.info('searching vehicle: ' + JSON.stringify(searchKeys)))
-      )
-      .subscribe((searchKeys) => {
-        this.vehicleSearchService.vehicleSearchGet(searchKeys.hsn, searchKeys.tsn, searchKeys.manufYear).subscribe({
-          next: (response) => this.handleVehicleSearchResponse(response),
-          error: (err) => { console.log('vehicle search error: ' + JSON.stringify(err)); this.handleVehicleSearchResponse(null); },
-          complete: () => console.log('vehicle search completed')
-        });
-      });
+  // @override
+  protected getData(): VehicleData {
+
+    const data = {
+      manufYear: this.manufYearControl.value,
+      purchaseYear: this.purchaseYearControl.value,
+      hsn: this.hsnControl.value,
+      tsn: this.tsnControl.value,
+      financing: this.financingControl.value,
+      manufacturer: this.foundVehicleManufacturer,
+      model: this.foundVehicleModel,
+    };
+
+    if (this.isVisibleHsnTsn()) {
+      data.manufacturer = this.foundVehicleManufacturer;
+      data.model = this.foundVehicleModel;
+    } else {
+      data.manufacturer = this.manufacturerControl.value;
+      data.model = this.modelChoiceControl.value;
+    }
+
+    return data;
   }
 
 
-  handleVehicleSearchResponse(response: VehicleSearchResponse) {
-    this.info('vehicle search response: ' + JSON.stringify(response));
+  // ----------- business logic ---------
 
+  // @override
+  protected updateLanguageStrings() {
+    switch (this.configService.getLanguage()) {
+      case Language.EN: {
+        this.properties = new Page020VehiclePropertiesEn();
+        break;
+      }
+      case Language.ES: {
+        this.properties = new Page020VehiclePropertiesEs();
+        break;
+      }
+      default: {
+        this.properties = new Page020VehiclePropertiesDe();
+      }
+    }
+
+    this.vehicleGroupConfig.updateLanguageStrings(this.properties);
+    this.configGroup.updateLanguageStrings(this.properties);
+  }
+
+
+  handleManufYearValueChange(manufYear: number) {
+    console.log('manuf year changed: ' + manufYear);
+
+    // correct purchase year select items
+    this.purchaseYearConfig.items = this.getYearSelectItems(manufYear);
+    // correct purchase year value
+    if (this.purchaseYearControl.value && this.purchaseYearControl.value < manufYear) {
+      this.purchaseYearControl.setValue(null);
+    }
   }
 
 
@@ -341,7 +390,84 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
   }
 
 
+  handleSelectionControlChange() {
+    this.updateFormControlVisibility();
+  }
+
+
+  handleHsnTsnChange() {
+    this.info('HSN/TSN changed');
+
+    this.clearFoundVehicle();
+
+    // check conditions for vehicle search
+    if (this.manufYearControl.valid && this.hsnControl.valid && this.tsnControl.valid) {
+      // search vehicle by HSN/TSN
+      this.info('searching vehicle for ' + this.hsnControl.value + '/' + this.tsnControl.value);
+      this.vehicleSearchSubject.next({ hsn: this.hsnControl.value, tsn: this.tsnControl.value, manufYear: this.manufYearControl.value });
+    }
+  }
+
+
+  // ---------- vehicle search ---------
+
+  subscribeVehicleSearch() {
+    this.vehicleSearchSubject
+      .pipe(
+        // filter(), for duplicate invocation
+        debounceTime(500),
+        tap((searchKeys) => this.info('searching vehicle: ' + JSON.stringify(searchKeys)))
+      )
+      .subscribe((searchKeys) => {
+        this.vehicleSearchService.vehicleSearchGet(searchKeys.hsn, searchKeys.tsn, searchKeys.manufYear, 'response').subscribe({
+          next: (response) => this.setFoundVehicleFromResponse(response),
+          error: (err) => { console.log('vehicle search error: ' + JSON.stringify(err)); this.clearFoundVehicle(); },
+          complete: () => console.log('vehicle search completed')
+        });
+      });
+  }
+
+  clearFoundVehicle() {
+    this.foundVehicleManufacturer = null;
+    this.foundVehicleModel = null;
+    this.foundVehicleImg = null;
+    this.foundVehicleText = '...';
+  }
+
+  setFoundVehicle(manufacturer: string, model: string) {
+    this.foundVehicleManufacturer = manufacturer;
+    this.foundVehicleModel = model;
+    this.foundVehicleImg = 'assets/manufacturer/' + manufacturer.toLowerCase() + '.png';
+    this.foundVehicleText = '<b>' + manufacturer + ' ' + model + '</b>';
+  }
+
+  setFoundVehicleFromResponse(response: HttpResponse<VehicleSearchResponse>) {
+    if (response.status === 200) {
+      const r = response.body.vehicleSearchResult;
+      this.setFoundVehicle(r.manufacturer, r.model);
+    } else if (response.status === 404) {
+      this.setFoundVehicleError();
+    }
+  }
+
+  setFoundVehicleError() {
+    this.clearFoundVehicle();
+    // this.foundVehicleText = this.properties.hsnTsnNotFoundError;
+
+    this.vehicleGroup.setErrors({ hsnTsnNotFound: true });
+    this.updateErrorMessage(this.vehicleGroup, ['hsnTsnNotFound'], this.properties.hsnTsnNotFoundError);
+  }
+
+
+  // ---------- submit ---------
+
   onSubmit() {
+
+    // ensure frontend validation
+    if (!this.form.valid) {
+      this.updateErrorMessages();
+      return;
+    }
 
     // search vehicle
     if (this.isVisibleComfortSearch()) {
@@ -349,10 +475,22 @@ export class Page020VehicleComponent extends AbstractDataEditor<VehicleData> imp
       this.tsnControl.setValue('CDY');
     }
 
-    this.updateErrorMessages();
-    this.confirm(this.form);
+    this.vehicleGroup.markAsPending();
+    this.validationService.validateVehicleData(this.getData())
+      .subscribe({
+        next: (backendErrors) => this.onBackendValidation(backendErrors),
+        error: () => this.onBackendValidation(null),
+      });
   }
 
 
+  onBackendValidation(backendErrors: ValidationError[]) {
+    this.vehicleGroup.setErrors(null);
+    if (!backendErrors) {
+      this.confirm(this.form);
+    } else {
+      this.updateErrorMessagesBackend(backendErrors);
+    }
+  }
 }
 

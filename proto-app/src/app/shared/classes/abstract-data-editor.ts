@@ -92,6 +92,30 @@ export abstract class AbstractDataEditor<T> implements OnInit {
   }
 
 
+  // Set an error message within form control.
+  protected updateErrorMessage(control: AbstractControl, validationErrors: string[], errorMsg: string) {
+    if (control.errors && control.enabled && !control.errors.errorMsg && errorMsg) {
+      const errors = control.errors;
+      delete errors.errorMsg;
+      for (const validationError of validationErrors) {
+        if (validationError in errors) {
+          errors.errorMsg = errorMsg;
+        }
+      }
+    }
+  }
+
+ // Set an error message within form control. For 'required' errors.
+ protected updateErrorMsgForRequired(control: FormControl, errorMsg: string) {
+    this.updateErrorMessage(control, ['required'], errorMsg);
+  }
+
+ // Set an error message within form control. For 'minlength', 'maxlength', 'pattern' errors.
+ protected updateErrorMsgForWrongFormat(control: FormControl, errorMsg: string) {
+    this.updateErrorMessage(control, ['minlength', 'maxlength', 'pattern'], errorMsg);
+  }
+
+
   protected confirm(form: FormGroup) {
     this.info('enter confirm()');
 

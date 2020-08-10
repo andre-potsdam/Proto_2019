@@ -26,9 +26,13 @@
                 <app-input formControlName="tsn" [config]="tsnConfig" class="appended">
                 </app-input>
 
-                <!-- foundVehiclePanel -->
-                <app-panel [config]="foundVehiclePanelConfig"></app-panel>
-
+                <!-- found vehicle -->
+                <app-form-row [config]="foundVehicleConfig">
+                    <div class="found-vehicle-panel">
+                        <img *ngIf="foundVehicleImg" [src]="foundVehicleImg" />
+                        <span [innerHTML]="foundVehicleText"></span>
+                    </div>
+                </app-form-row>
             </div>
 
             <div *ngIf="isVisibleComfortSearch()">
@@ -44,7 +48,7 @@
 
             </div>
 
-            <div >
+            <div>
 
             </div>
 
@@ -64,6 +68,8 @@
     <span>form value: {{form.value | json}}</span>
     <p></p>
     <span>form valid: {{form.valid | json}}</span> -->
+
+    <span>pending state: {{ form.pending }}</span>
 
     </form>
 

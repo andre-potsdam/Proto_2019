@@ -6,8 +6,15 @@ export class InputConfig extends FormControlConfig {
 
     postfix: string;
 
-    constructor(name: string, type: string, showInfo: boolean) {
+    public maxlength: number;
+
+
+    constructor(name: string, public type: string, showInfo: boolean) {
         super(name, showInfo);
+    }
+
+    setMaxLength(maxlength: number) {
+        this.maxlength = maxlength;
     }
 
     hasPostfix(): boolean {

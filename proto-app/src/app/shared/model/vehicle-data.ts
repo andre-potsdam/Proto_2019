@@ -11,4 +11,9 @@ export class VehicleData {
     tsn: string;
 
     financing: Financing;
+
+    // client side only
+    manufacturer: string;
+
+    model: string;
 }
